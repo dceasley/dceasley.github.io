@@ -1,47 +1,18 @@
 html {
   height: 100%;
+  scroll-padding-top: 80px;
 }
 body {
   min-height: 100%;
   display: grid;
   grid-template-rows: 1fr auto;
+  padding-top: 50px;
   
 }
+
 .footer {
   grid-row-start: 2;
   grid-row-end: 3;
-}
-
-.gray-bg-1 {
-    position: relative;
-    width: 100%;
-    padding: 0.75rem 1rem;
-    background-color: #e9ecef;
-    border-radius: 0.25rem;
-}
-
-.gray-bg {
-    -ms-flex: 0 0 31.9%;
-    flex: 0 0 31.9%;
-    max-width: 31.9%;
-}
-
-
-.image-item {
-  position: relative;
-  display: block;
-  float: left;
-  width: 100%;
-  margin-right: -100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transition: -webkit-transform 0.6s ease-in-out;
-  transition: transform 0.6s ease-in-out;
-  transition: transform 0.6s ease-in-out, -webkit-transform 0.6s ease-in-out;
-
-  z-index: 1;
-  opacity: 1;
-  
 }
 
 .my_header {
@@ -54,14 +25,16 @@ body {
 }
 
 .my_header_blue {
-  background-color:  rgba(82, 97, 136, 0.7);
+  background-color:  rgba(82, 97, 136, 0.534);
+  text-shadow: 1px 0px 30px #000000;
 }
 
 .background-image {
   background-image: url("images/soft-white-backgrounds-wallpapers.png");
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   background-size: auto;
   background-position: center;
+  background-attachment: fixed;
 }
 
 .my_card {
@@ -70,10 +43,14 @@ body {
   box-shadow: 0px 2px 25px 4px rgba(0,0,0,0.45);
   border-radius: 6px;
   position: relative;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .card-body {
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.151);
+  border-radius: 6px;
+  
 }
 
 .profile_image {
@@ -91,26 +68,27 @@ body {
   padding: 80px 20px 20px 20px;
   color: #fff;
   text-align: left;
-  text-shadow: 0px 2px 20px #000000;
-  border-radius: 0px 0px 6px 6px;
+  text-shadow: 2px 0px 3px #000000;
+  border-radius: 6px;
 }
 
 .navbar {
   -webkit-box-shadow: 0px 2px 25px 4px rgba(0,0,0,0.45);
   -moz-box-shadow: 0px 2px 25px 4px rgba(0,0,0,0.45);
   box-shadow: 0px 2px 25px 4px rgba(0,0,0,0.45);
-  background-color: rgba(250, 250, 250, 0.801);
 }
 
 .carousel-item {
-  border-radius: 0px 0px 6px 6px;
+  border-radius: 6px;
   -webkit-box-shadow: 0px 2px 25px 4px rgba(0,0,0,0.45);
   -moz-box-shadow: 0px 2px 25px 4px rgba(0,0,0,0.45);
   box-shadow: 0px 2px 25px 4px rgba(0,0,0,0.45);
 }
 
 .bg-dark {
-  background-color: #26282bd2 !important;
+  background-color: #26282bb7 !important;
+  backdrop-filter: blur(10px) saturate(125%);
+  -webkit-backdrop-filter: blur(10px) saturate(125%);           
 }
 
 .container2 {
@@ -121,12 +99,12 @@ body {
   margin-right: auto;
   margin-left: auto;
 }
-
+/* 
 @media (min-width: 576px) {
   .container2 {
     max-width: 540px;
   }
-}
+} */
 
 @media (min-width: 768px) {
   .container2 {
@@ -134,14 +112,34 @@ body {
   }
 }
 
-@media (min-width: 992px) {
-  .container2 {
-    max-width: 720px;
-  }
+.container1 {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-@media (min-width: 1200px) {
-  .container2 {
+/* @media (min-width: 576px) {
+  .container1 {
+    max-width: 540px;
+  }
+} */
+
+/* @media (min-width: 768px) {
+  .container1 {
     max-width: 720px;
+  }
+} */
+
+/* @media (min-width: 992px) {
+  .container1 {
+    max-width: 960px;
+  }
+} */
+
+@media (min-width: 1200px) {
+  .container1 {
+    max-width: 1140px;
   }
 }
