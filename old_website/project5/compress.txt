@@ -1,0 +1,13 @@
+function Xe = compress(Xb,Q)
+
+%Quantization
+Xd=double(Xb);
+Xc=Xd-128;
+C=dct(Xd);
+Y=C*Xc*C';
+Yq=round(Y./Q);
+
+%Dequantization
+Ydq=Yq.*Q;
+Xdq=C'*Ydq*C;
+Xe=Xdq+128;

@@ -1,0 +1,79 @@
+%2. The Quadratic Method
+c = 299792.458; % speed of light in km/sec
+
+% satellite coordinates
+s1 = [15600, 7540, 20140];
+s2 = [18760, 2750, 18610];
+s3 = [17610, 14630,13480];
+s4 = [19170, 610,  18390];
+
+A1=s1(1); B1=s1(2); C1=s1(3);
+A2=s2(1); B2=s2(2); C2=s2(3);
+A3=s3(1); B3=s3(2); C3=s3(3);
+A4=s4(1); B4=s4(2); C4=s4(3);
+
+% time intervals
+t1 = .07074;
+t2 = .07220;
+t3 = .07690;
+t4 = .07242;
+
+ux1=2*(A2-A1);
+uy1=2*(B2-B1);
+uz1=2*(C2-C1);
+ud1=2*(c^2)*(t1-t2);
+w1 =A1^2-A2^2+B1^2-B2^2+C1^2-C2^2-(c^2)*(t1^2)+(c^2)*(t2^2);
+
+ux2=2*(A3-A1);
+uy2=2*(B3-B1);
+uz2=2*(C3-C1);
+ud2=2*(c^2)*(t1-t3);
+w2 =A1^2-A3^2+B1^2-B3^2+C1^2-C3^2-(c^2)*(t1^2)+(c^2)*(t3^2);
+
+ux3=2*(A4-A1);
+uy3=2*(B4-B1);
+uz3=2*(C4-C1);
+ud3=2*(c^2)*(t1-t4);
+w3 =A1^2-A4^2+B1^2-B4^2+C1^2-C4^2-(c^2)*(t1^2)+(c^2)*(t4^2);
+
+% vertical matrices ux, uy, uz (vectors)
+ux=[ux1; ux2; ux3];
+uy=[uy1; uy2; uy3];
+uz=[uz1; uz2; uz3];
+ud=[ud1; ud2; ud3];
+w =[w1; w2; w3];
+
+% formula for x,y,z in terms of d
+% x = d*f-g
+f = det([uy uz ud])/(-det([uy uz ux]));
+g = det([uy uz w])/det([uy uz ux]);
+
+% y = d*h-i
+h = det([ux uz ud])/(-det([ux uz uy]));
+i = det([ux uz w])/det([ux uz uy]);
+
+% z = d*j-k
+j = det([ux uy ud])/(-det([ux uy uz]));
+k = det([ux uy w])/det([ux uy uz]);
+
+
+% quadratic formula to solve for d
+aq=f^2+h^2+j^2-c^2;
+bq=2*( c^2*t1 - f*(g+A1) - h*(i+B1) - j*(k+C1) );
+cq=(g+A1)^2+(i+B1)^2+(k+C1)^2 - c^2*t1^2;
+
+d1 = (-bq+sqrt(bq^2-4*aq*cq))/(2*aq)
+d2 = (-bq-sqrt(bq^2-4*aq*cq))/(2*aq)
+
+% Check: the correct solution for d should be -3.201566×10^(-3) s, which coincides with d1.
+% Thus d1 belongs to the near-earth solution and d2 belongs to the far-from-earth solution
+
+% near-earth solution
+x1 = d1*f-g
+y1 = d1*h-i
+z1 = d1*j-k
+
+% far-from-earth solution
+x2 = d2*f-g
+y2 = d2*h-i
+z2 = d2*j-k

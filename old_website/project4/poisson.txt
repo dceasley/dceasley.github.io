@@ -1,0 +1,64 @@
+% Program 8.5 Finite difference solver for 2D Poisson equation 
+%   with Dirichlet boundary conditions on a rectangle 
+% Input: rectangle domain [xl,xr]x[yb,yt] with MxN space steps 
+% Output: matrix w holding solution values 
+% Example usage: w=poisson(0,1,1,2,4,4) 
+function w=poisson(xl,xr,yb,yt,M,N) 
+K=1.68; % thermal conductivity
+H=0.005; %convective heat transfer
+delta = 0.1; %thickness
+P = 5%13;
+L = yt-yb;
+
+f=@(x,y) 0; % define input function data 
+g1=@(x) 0; % define boundary values  g1:bottom (x,yb)
+g2=@(x) 0; % Example 8.8 is shown g2: top (x,yt)
+%g3=@(y) 0; %Left side: g3: (x1,y)
+g3=@(y) -P/(L*delta*K); %(y<=3&&y>=1)*-P/(L*delta*K);
+g4=@(y) 0; %right side g4: (xr,y)
+m=M+1;n=N+1; mn=m*n; 
+h=(xr-xl)/M;h2=h^2;k=(yt-yb)/N;k2=k^2; 
+x=xl+(0:M)*h; % set mesh values 
+y=yb+(0:N)*k; 
+A=zeros(mn,mn);b=zeros(mn,1); 
+for i=2:m-1 % interior points 
+  for j=2:n-1 
+    A(i+(j-1)*m,i-1+(j-1)*m)=1/h2;
+    A(i+(j-1)*m,i+1+(j-1)*m)=1/h2; 
+    A(i+(j-1)*m,i+(j-1)*m)=-2/h2-2/k2-2*H/(K*delta); 
+    A(i+(j-1)*m,i+(j-2)*m)=1/k2;
+    A(i+(j-1)*m,i+j*m)=1/k2; 
+    b(i+(j-1)*m)=f(x(i),y(j)); 
+  end 
+end 
+for i=1:m % bottom and top boundary points Bottom
+  j=1;
+  A(i+(j-1)*m,i+(j-1)*m)=(-3/(2*k))+H/K; 
+  A(i+(j-1)*m,i+(j)*m)= 4/(2*k);
+  A(i+(j-1)*m,i+(j+1)*m)= -1/(2*k);
+  b(i+(j-1)*m)=g1(x(i)); 
+  j=n;
+  A(i+(j-1)*m,i+(j-2)*m)=4/(2*k);
+  A(i+(j-1)*m,i+(j-1)*m)=-3/(2*k)+H/K;
+  A(i+(j-1)*m,i+(j-3)*m)=-1/(2*k);
+  b(i+(j-1)*m)=g2(x(i)); 
+end 
+for j=2:(n-1) % left and right boundary points 
+  i=1;
+  %A(i+(j-1)*m,i+(j-1)*m)=(-3/(2*h))+H/K; Comented out to add power
+  A(i+(j-1)*m,i+(j-1)*m)=(-3/(2*h));
+  
+  A(i+(j-1)*m,1+i+(j-1)*m)=(4/(2*h));
+  A(i+(j-1)*m,2+i+(j-1)*m)=(-1/(2*h));
+  b(i+(j-1)*m)=g3(y(j)); 
+  i=m;
+  A(i+(j-1)*m,i+(j-1)*m)=(-3/(2*h))+H/K;
+  A(i+(j-1)*m,i-1+(j-1)*m)=(4/(2*h));
+  A(i+(j-1)*m,i-2+(j-1)*m)=(-1/(2*h));
+  b(i+(j-1)*m)=g4(y(j)); 
+end 
+v=A\b; % solve for solution in v labeling 
+w=reshape(v(1:mn),m,n); %translate from v to w 
+w = w+20;
+max(w(:))
+mesh(x,y,w') 

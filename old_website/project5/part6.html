@@ -1,0 +1,171 @@
+<HTML><HEAD><TITLE>Project 5 Part 6</TITLE></HEAD>
+<BODY bgColor="#E8E8E8"  link="#800000" vlink="#800000">
+<style type="text/css">
+body{background: url("http://mason.gmu.edu/~deasley2/itbg_d7ecef.png"); 
+margin:40px; padding:0px; border:0px}
+
+<!-------------------------------------------------------------------------------------------------------------------------------------------->
+
+i{font-family: "Times";}
+
+h1 { color:#0c7f95; font-size: 250%; height:16px; text-align:center}
+h2 { color:#0a8fa0; font-size: 175%; height:16px; text-align:center}
+h3 { color:#0a8fa0; font-size: 148%; height:12px; text-align:center}
+h4 { color:#0a8fa0; font-size: 120%; height:12px; text-align:center}
+.wrapper {width: 520px; margin: auto; }
+
+nav
+{
+display: block;    
+width: 460px;
+margin: 0 auto;
+text-align:center
+}
+
+nav a
+{
+    display: block;
+    float: left;
+    margin: .25em 5px .25em;
+    width: 82px;
+    height: 30px;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+}
+
+nav a[href="http://mason.gmu.edu/~deasley2/project5/"] { 
+background-image: 
+url("http://mason.gmu.edu/~deasley2/project5/Intro.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project5/part3.html"] { 
+background-image: 
+url("http://mason.gmu.edu/~deasley2/project5/11-2-3.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project5/part4.html"] { 
+background-image: 
+url("http://mason.gmu.edu/~deasley2/project5/11-2-4.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project5/part5.html"] { 
+background-image: 
+url("http://mason.gmu.edu/~deasley2/project5/11-2-5.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project5/part6.html"] { 
+background-image: 
+url("http://mason.gmu.edu/~deasley2/project5/11-2-6.png");}
+
+nav a:hover
+{
+    background-position: top center;
+}
+
+nav span
+{
+    visibility: hidden;
+}
+
+<!--------------------------------------------------------------------------------------------------------------------------------------------->
+
+</style>
+
+<FONT FACE="goudy old style, arial ">
+
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+
+
+
+
+
+<h1>Project 5</h1>
+<h2>Image Compression</h2>
+
+<h4>By Deanna Easley </h4>
+
+</head>
+  <body>
+<div class="wrapper">
+<div class="header">
+        <nav>
+            <a 
+href="http://mason.gmu.edu/~deasley2/project5/"><span>Intro</span></a>
+            <a 
+href="http://mason.gmu.edu/~deasley2/project5/part3.html"><span>Part 
+3</span></a>
+            <a 
+href="http://mason.gmu.edu/~deasley2/project5/part4.html"><span>Part 
+4</span></a>
+            <a 
+href="http://mason.gmu.edu/~deasley2/project5/part5.html"><span>Part 
+5</span></a>
+            <a 
+href="http://mason.gmu.edu/~deasley2/project5/part6.html"><span>Part 
+6</span></a>
+        </nav>
+</div>
+<p><br><br></p>
+</div>
+
+
+
+<h3>11.2.6 - Color Image Compression using Luminance & Color Difference 
+Coordinates</h3>
+
+<center><img 
+src="http://mason.gmu.edu/~deasley2/project5/proj5_colorscale_original.jpg" 
+align=center>
+</center>
+<p></p>
+
+<p>Here we will use the same color image and extracted 8x8 block obtained 
+from the previous problem, but this time we transform the RGB values to 
+luminance/color difference coordinates (YUV) using different quantization. 
+Instead we will use the JPEG-suggested matrix for Luminance (\(Y\)) and 
+the Color Difference Matrix for the color differences (\(U\) and \(V\)). 
+<p>
+
+<p>We define \(Y\), \(U\) and \(V\) as follows:
+\begin{eqnarray*}
+Y &=& 0.299R + 0.587G + 0.114B \\
+U &=& B - Y \\
+V &=& R - Y \\
+\end{eqnarray*}
+
+Then we convert back to RGB by defining
+\begin{eqnarray*}
+R &=& V + Y \\
+B &=& U + Y \\
+G &=& \frac{(Y - 0.299R  - 0.114B)}{0.587} \\
+\end{eqnarray*}
+
+
+and recombine as a color image. This results in the following 
+reconstructed 8x8 blocks (<a
+href="http://mason.gmu.edu/~deasley2/project5/colorscaleYUV8x8.txt">colorscaleYUV8x8.m</a>) 
+and reconstituted images (<a
+href="http://mason.gmu.edu/~deasley2/project5/colorscaleYUV.txt">colorscaleYUV.m</a>).<p>
+
+<center>
+    <img 
+src="http://mason.gmu.edu/~deasley2/project5/colorscaleYUV8x8_p1.jpg" 
+alt='missing' />
+    <img 
+src="http://mason.gmu.edu/~deasley2/project5/colorscaleYUV8x8_p2.jpg" 
+alt='missing' />
+    <img 
+src="http://mason.gmu.edu/~deasley2/project5/colorscaleYUV8x8_p4.jpg" 
+alt='missing' />
+</center>
+<p></p>
+
+<center>
+    <img 
+src="http://mason.gmu.edu/~deasley2/project5/colorscaleYUV_p1.jpg" 
+alt='missing' />
+    <img 
+src="http://mason.gmu.edu/~deasley2/project5/colorscaleYUV_p2.jpg" 
+alt='missing' />
+    <img 
+src="http://mason.gmu.edu/~deasley2/project5/colorscaleYUV_p4.jpg" 
+alt='missing' />
+</center>
+
+</body>
+</html>
+

@@ -1,0 +1,278 @@
+<HTML><HEAD>
+<TITLE>Project 1</TITLE>
+<script type="text/javascript" 
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"> 
+</script>
+ </HEAD>
+<BODY> 
+<BODY bgColor="#E8E8E8"  link="#800000" vlink="#800000"> 
+
+<FONT FACE="goudy old style, arial ">
+
+<h1>Project 1</h1>
+
+<h2>Reality Check 2: The Euler-Bernoulli Beam</h2>
+
+<h4>By James Collier, Deanna Easley, and Robert Truong</h4>
+
+<p>\(\\\)<p>
+
+<p>The Euler-Bernoulli beam is a mathematical model for a beam of 
+material 
+bending under stress represented by the equation 
+\[EIy''''=f(x)\]
+where \( f(x)\) is the applied load (including the weight of the beam), 
+\(y(x)\) is the function that represents the vertical displacement of the 
+beam, where \(0\leq x\leq L\) and \(L\) is the length of the beam. The 
+quantities \(E\) and \(I\) are the constant Young's modulus of the 
+material and the constant area moment of inertia, respectively.<p>
+<hr>
+
+<p>
+(1) In order to define the structure of our banded matrix \(A\), we 
+hard-coded the fixed rows and implemented a 
+<a href="http://mason.gmu.edu/~jcollie3/project1p1matrix.txt">nested for 
+loop</a> in Matlab to fill in the rows
+that depend on \(n\), where \(n\) is defined as the number of grid steps. 
+Using MATLAB's \ command for matrix division, we solved our 
+system of equations for the displacements \(y_i\) for \(n=10\), and 
+plotted the approximate solution on the interval \([0,2]\).
+</p>
+
+<center>
+<a href="http://mason.gmu.edu/~jcollie3/project1p1code.txt"><img 
+src="project1p1plot.png"></a>
+</center>
+
+<p>
+(2) For part 2, we plotted our approximate solution against the correct 
+solution \( y(x) \), as well as the absolute error over the domain of 
+\(x\). Since the derivative approximations are exact in this case, the 
+error is near machine roundoff.
+</p>
+
+<p>
+<a href="http://mason.gmu.edu/~jcollie3/project1p2code.txt">code for part 
+2</a>
+</p>
+
+<center>
+    <img src="project1p2plot.png"  alt='missing' />
+    <img src="project1p2errorplot.png"  alt='missing' />
+</center>
+
+
+<p>
+(3) Tasked with determining the n value which minimizes error for 
+\(n=2\times 10^{\, k}\) and \(k=1,\dots,10\), we proceeded by making a 
+table of the errors corresponding to each \(n\) value. Based on our 
+results, the 
+error is minimal in the case \(n=20\), 
+and strictly increases with the \(n\) values included in our
+program. Our accompanying table of the condition number of matrix \(A\), 
+which shows that the condition number also increases with \(n\), 
+indicates that the increased error associated with increasing \(n\) is 
+attributed to rounding error as a result of our matrix becoming 
+ill-conditioned as \(n\) increases.
+</p>
+
+<p><a href="http://mason.gmu.edu/~jcollie3/project1p3code.txt">code for 
+part 
+3</a><p>
+
+<center>
+<table width=30% border=1 cellpadding=2 cellspacing=0>
+<tr><td width=20% align=center><b>\(n\)</td>	<td 
+width=40% align=center><b>errors</td>		
+<td width=40% align=center><b>cond(A)</td></tr>
+<tr><td align=center>20</td>		<td 
+align=center>4.0593e\(-15\)</td>	<td 
+align=center>5.303e\(+05\)</td>
+<tr><td align=center>40</td>		<td 
+align=center>1.9687e\(-13\)</td>	<td 
+align=center>8.4493e\(+06\)</td></tr>
+<tr><td align=center>80</td>		<td 
+align=center>1.3385e\(-12\)</td>	<td 
+align=center>1.3482e\(+08\)</td></tr>
+<tr><td align=center>160</td>		<td 
+align=center>1.5524e\(-11\)</td>	<td 
+align=center>2.1539e\(+09\)</td></tr>
+<tr><td align=center>320</td>		<td 
+align=center>3.746e\(-10\)</td>	<td align=center>3.4435e\(+10\)</td></tr>
+<tr><td align=center>640</td>		<td 
+align=center>8.2035e\(-10\)</td>	<td 
+align=center>5.5073e\(+11\)</td></tr>
+<tr><td align=center>1280</td>		<td 
+align=center>4.2696e\(-09\)</td>	<td 
+align=center>8.8099e\(+12\)</td></tr>
+<tr><td align=center>2560</td>		<td 
+align=center>1.7006e\(-07\)</td>	<td 
+align=center>1.4094e\(+14\)</td></tr>
+<tr><td align=center>5120</td>		<td 
+align=center>3.797e\(-06\)</td>	<td align=center>2.2549e\(+15\)</td></tr>
+<tr><td align=center>10240</td>		<td 
+align=center>3.9358e\(-05\)</td>	<td 
+align=center>3.6176e\(+16\)</td></tr>
+</table>
+</center>
+
+
+</BODY>
+</HTML>
+<p>
+(4) Given \( s(x)=-pg\sin\big(\frac{\pi}{L}x\big) \), we need to show 
+that \( EIy''''(x)=f+s(x) \) by solving for  \( y''''(x) \), where \( 
+y(x)=\frac{f}{24EI}x^2(x^2-4Lx+6L^2)-\frac{pgL}{EI\pi}\Big(\frac{L^3}{\pi^3}\sin\big(\frac{\pi}{L}x\big)-\frac{x^3}{6}+\frac{L}{2}x^2-\frac{L^2}{\pi^2}x\Big). 
+\)<p>
+
+\begin{eqnarray*}
+y'(x)&=&\frac{f}{6EI}x(x^2-3Lx+3L^2)-\frac{pgL}{EI\pi}\Big(\frac{L^2}{\pi^2}\cos\big(\frac{\pi}{L}x\big)-\frac{L^2}{\pi^2}+Lx-\frac{x^2}{2}\Big)\\
+y''(x)&=&\frac{f}{2EI}(L-x)^2-\frac{pgL}{EI\pi}\Big(-\frac{L\sin(\frac{\pi}{L}x)}{\pi}+L-x\Big)\\
+y'''(x)&=&\frac{f}{EI}(x-L)-\frac{pgL}{EI\pi}\Big(\cos\big(\frac{\pi}{L}x\big)+1\Big)\\
+y''''(x)&=&\frac{f}{EI}-\frac{pg}{EI}\sin\big(\frac{\pi}{L}x\big)=\frac{1}{EI}\Big(f-pg\sin\big(\frac{\pi}{L}x\big)\Big)=\frac{1}{EI}(f-s(x)).
+\end{eqnarray*}
+
+<p>Thus, multiplication by \(EI\) yields \(EIy''''(x)=f+s(x)\). 
+Therefore, equation \(EIy''''(x)=f+s(x)\) holds.<p>
+
+<p> Now we need to show that the boundary conditions \( 
+y(0)=y'(0)=y''(L)=y'''(L)=0 \) hold.<p>
+
+\begin{eqnarray*}
+y(0)&=&\frac{f}{24EI}(0)^2((0)^2-4L(0)+6L^2)-\frac{pgL}{EI\pi}\Big(\frac{L^3}{\pi^3}\sin\big(\frac{\pi}{L}(0)\big)-\frac{(0)^3}{6}+\frac{L}{2}(0)^2-\frac{L^2}{\pi^2}(0)\Big)\\
+&=&0-\frac{pgL}{EI\pi}\Big(\frac{L^3}{\pi^3}(0)-0+0-0\Big)%\\&
+=0\\
+\\
+y'(0)&=&\frac{f}{6EI}(0)((0)^2-3L(0)+3L^2)-\frac{pgL}{EI\pi}\Big(\frac{L^2}{\pi^2}\cos\big(\frac{\pi}{L}(0)\big)-\frac{L^2}{\pi^2}+L(0)-\frac{(0)^2}{2}\Big)\\
+&=&0-\frac{pgL}{EI\pi}\Big(\frac{L^2}{\pi^2}(1)-\frac{L^2}{\pi^2}+0-0\Big)=-\frac{pgL}{EI\pi}\Big(\frac{L^2}{\pi^2}-\frac{L^2}{\pi^2}\Big)=-\frac{pgL}{EI\pi}(0)=0\\
+\\
+y''(L)&=&\frac{f}{2EI}(L-L)^2-\frac{pgL}{EI\pi}\Big(-\frac{L\sin(\frac{\pi}{L}L)}{\pi}+L-L\Big)=0-\frac{pgL}{EI\pi}\Big(-\frac{L\sin\pi}{\pi}\Big)=0\\
+\\
+y'''(L)&=&\frac{f}{EI}(L-L)-\frac{pgL}{EI\pi}\Big(\cos(\frac{\pi}{L}L)+1\Big)
+=0-\frac{pgL}{EI\pi}\Big(-1+1\Big)=0\\
+\end{eqnarray*}
+
+Therefore, we have verified that all boundary conditions are indeed 
+satisfied.
+
+<p>\( \\ \)<p>
+
+<p>
+(5) We repeated the procedure done in part 3, except the force function 
+\( f(x) \) was changed to add a sine term to it. This sine term now makes 
+the matrix approximation inexact, so in this case, the error goes down as 
+\(h\) gets smaller. The \(n\) where the error is least small is at \(k = 
+7\), so \(n = 1280\). In the loglog plot below, up until \(k = 7\), the 
+slope of the line is pretty roughly 2 &#8212 more exactly, the slope from 
+regressing the first six points is \(\sim 2.0026829501\) with an \(r^2\) 
+of 
+\(\sim .9999899115\).<!--Which was done 
+in OpenOffice Calc, because figuring out how to do a linear regression 
+model in MATLAB hurt my head and made me cry.--> This indicates that the 
+error is basically proportional to \(h^2\) for that portion of the graph, 
+so every time \(k\) increases by one, \(n\) doubles, \(h\) gets cut in 
+half, and the error approximately shrinks by one-fourth. At \(n = 1280\), 
+though, the error shrinks by a factor greater than the expected 
+\(\frac{1}{4}\), and from \(k = 8\) onwards, 
+though, the matrix's increasing ill-conditionedness (i.e. increasing 
+condition number) begins to overtake the benefits of decreasing the size 
+of \(h\), so the error starts going up drastically.
+</p>
+
+<p>
+<a href="http://mason.gmu.edu/~rtruong2/project1/project1p5code.txt">code 
+for part 5</a>
+</p>
+
+<center>
+    <img src="project1p5plot1.png" alt='missing' />
+    <img src="project1p5plot2.png" alt='missing' />
+    <img src="project1p5plot3.png" alt='missing' />
+</center>
+
+<p>
+(6) The n used for this part was 1280, because that was the optimal value 
+for (5). We use this value to choose our step size for a different 
+\(f(x)\) without a given exact solution, which models a diver standing at 
+the end 
+of a board. Using this step size, we generate and solve the matrix to get 
+an estimate of the solution, which is displayed on the graph below. The 
+generated solution for that ended up being a displacement of 
+\(-0.247728119658220\) meters.
+</p>
+
+<p>
+<a href="http://mason.gmu.edu/~rtruong2/project1/project1p6code.txt">code 
+for part 
+6</a>
+</p>
+
+<center>
+    <img src="project1p6plot1.png" alt='missing' />
+</center>
+
+<p>
+(7) The results of this are largely similar to (5), in the sense that the 
+error shrinks more or less constantly up until a point, which here is the 
+eighth point, \(n = 2559\), after which the increasing condition number 
+begins to overtake the benefits of decreasing \(h\) further and raises the 
+error. 
+Doing a linear regression on the first seven points again yields a slope 
+very close to 2 (more exactly, a slope of 2.0006508491 with an \(r^2\) of 
+.9999999899<!--again done in OpenOffice Calc, because MATLAB is 
+suffering.-->), showing a more or less identical correlation to (5) 
+between the error and \(h^2\). The error then shrinks more than expectedly 
+at the eighth point \(n = 2559\) and starts vastly increasing from the 
+ninth point (\(n = 5119\)) and onwards.
+</p>
+
+<p>
+<a href="http://mason.gmu.edu/~rtruong2/project1/project1p7code.txt">code 
+for part 7</a>
+</p>
+
+<center>
+    <img src="project1p7plot1.png" alt='missing' />
+    <img src="project1p7plot2.png" alt='missing' />
+    <img src="project1p7plot3.png" alt='missing' />
+</center>
+
+<p>\(\\\)<p>
+
+<center>
+<table width=30% border=1 cellpadding=2 cellspacing=0>
+<tr><td width=20% align=center><b>\(n\)</td>	<td width=40% 
+align=center><b>errors</td>		
+<td width=40% align=center><b>cond(A)</td></tr>
+<tr><td align=center>19</td>		<td 
+align=center>1.6233e\(-05\)</td>	<td align=center>6607.6</td>
+<tr><td align=center>39</td>		<td 
+align=center>4.0535e\(-06\)</td>	<td 
+align=center>1.053e\(+05\)</td></tr>
+<tr><td align=center>79</td>		<td 
+align=center>1.013e\(-06\)</td>	<td align=center>1.6832e\(+06\)</td></tr>
+<tr><td align=center>159</td>		<td 
+align=center>2.5322e\(-07\)</td>	<td 
+align=center>2.6925e\(+07\)</td></tr>
+<tr><td align=center>319</td>		<td 
+align=center>6.3301e\(-08\)</td>	<td 
+align=center>4.3078e\(+08\)</td></tr>
+<tr><td align=center>639</td>		<td 
+align=center>1.581e\(-08\)</td>	<td align=center>6.8924e\(+09\)</td></tr>
+<tr><td align=center>1279</td>		<td 
+align=center>3.9508e\(-09\)</td>	<td 
+align=center>1.1028e\(+11\)</td></tr>
+<tr><td align=center>2559</td>		<td 
+align=center>1.3599e\(-10\)</td>	<td 
+align=center>1.7644e\(+12\)</td></tr>
+<tr><td align=center>5119</td>		<td 
+align=center>2.4555e\(-08\)</td>	<td 
+align=center>2.8234e\(+13\)</td></tr>
+<tr><td align=center>10239</td>		<td 
+align=center>3.7783e\(-07\)</td>	<td 
+align=center>4.5432e\(+14\)</td></tr>
+</table>
+</center>
+
+<p>\(\\\)<p>
+

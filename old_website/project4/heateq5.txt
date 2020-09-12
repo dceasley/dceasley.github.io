@@ -1,0 +1,96 @@
+% Program 8.5 Finite difference solver for 2D Poisson equation 
+%   with Dirichlet boundary conditions on a rectangle 
+% Input: rectangle domain [xl,xr]x[yb,yt] with MxN space steps 
+% Output: matrix w holding solution values 
+% Example usage: w=poisson(0,1,1,2,4,4) 
+function w=heateq5(xl,xr,yb,yt,M,N) 
+xl=0; xr=4; yb=0; yt=4;% domain in cm
+M=20;N=20; %M=N=20 for less time consumed 
+
+H=0.005; %convective heat transfer
+delta = 0.1; %thickness
+L = 2;
+
+f=@(x,y) 0; % define input function data 
+g1=@(x) 0; %there is no function depends on x
+g2=@(x) 0; 
+%g3=@(y) (y<=3&&y>=1)*-P/(L*delta*K);  
+g4=@(y) 0; 
+m=M+1;n=N+1; mn=m*n; 
+h=(xr-xl)/M;h2=h^2;k=(yt-yb)/N;k2=k^2; 
+x=xl+(0:M)*h; % set mesh values 
+y=yb+(0:N)*k; 
+A=zeros(mn,mn);b=zeros(mn,1); 
+
+resultk=[];
+storek=[];
+resultp=[];
+storep=[];
+
+for c=1:0.5:5 % thermal conductivity between 1 and 5 with increments of 0.5
+    K=c;
+for p=1:0.01:20 % Power test from 1 to 20 with increments of 0.01
+    P=p;
+for i=2:m-1 % interior points 
+  for j=2:n-1 
+    A(i+(j-1)*m,i-1+(j-1)*m)=1/h2;
+    A(i+(j-1)*m,i+1+(j-1)*m)=1/h2; 
+    A(i+(j-1)*m,i+(j-1)*m)=-2/h2-2/k2-(2*H)/(K*delta); 
+    A(i+(j-1)*m,i+(j-2)*m)=1/k2;
+    A(i+(j-1)*m,i+j*m)=1/k2; 
+    b(i+(j-1)*m)=f(x(i),y(j)); 
+  end 
+end 
+for i=1:m % bottom and top boundary points 
+  j=1;
+  A(i+(j-1)*m,i)=-3/(2*k)+H/K;
+  A(i+(j-1)*m,i+m)=2/k;
+  A(i+(j-1)*m,i+2*m)=-1/(2*k);
+  b(i+(j-1)*m)=g1(x(i)); 
+  
+  j=n;
+  A(i+(j-1)*m,i+(j-1)*m)=-3/(2*k)+H/K;
+  A(i+(j-1)*m,i+(j-2)*m)=2/k;
+  A(i+(j-1)*m,i+(j-3)*m)=-1/(2*k);
+  b(i+(j-1)*m)=g2(x(i)); 
+end 
+for j=2:n-1 % left and right boundary points 
+  i=1;
+  if (j>= N/4 && j<= 3*N/4) %half size of the length 
+      A(i+(j-1)*m,1+(j-1)*m)=-3/(2*h);
+      A(i+(j-1)*m,2+(j-1)*m)=2/h;
+      A(i+(j-1)*m,3+(j-1)*m)=-1/(2*h);
+      b(i+(j-1)*m)=-P/(L*delta*K); % Equation for when the power enters along the left side
+  else 
+      A(i+(j-1)*m,1+(j-1)*m)=-3/(2*h)+H/K;
+      A(i+(j-1)*m,2+(j-1)*m)=2/h;
+      A(i+(j-1)*m,3+(j-1)*m)=-1/(2*h);
+      b(i+(j-1)*m)=0; %When there's no power inputted.
+  end 
+  
+  i=m;
+  A(i+(j-1)*m,i+(j-1)*m)=-3/(2*h)+H/K;
+  A(i+(j-1)*m,i-1+(j-1)*m)=2/h;
+  A(i+(j-1)*m,i-2+(j-1)*m)=-1/(2*h);
+  b(i+(j-1)*m)=g4(y(j)); 
+end 
+v=A\b; % solve for solution in v labeling 
+maximum = max(v); %to get the maximum temp
+if maximum<60 % when the highest temp is less than 80 with bulk temp 20
+   resultk=[K];
+   resultp=[P];
+end
+end
+storek=[storek; resultk];
+storep=[storep; resultp];
+end
+
+hold on;
+axis([0,5.5,0,13]);
+scatter(storek,storep,'filled')
+title('Maximum Power vs. Thermal conductivity','fontweight','bold','fontsize',14)
+xlabel('Thermal Conductivity (W/cm{\circ}C)','fontweight','bold') % {\circ} for degree sign
+ylabel('Maximum Power (W)','fontweight','bold') 
+hold off;
+storek
+storep

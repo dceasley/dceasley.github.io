@@ -1,0 +1,203 @@
+<HTML><HEAD><TITLE>Project 4</TITLE>
+</HEAD>
+<BODY bgColor="#E8E8E8"  link="#800000" vlink="#800000">
+
+<FONT FACE="goudy old style, arial ">
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+
+<h1>Project 4</h1>
+
+<h2>Cooling Fin</h2>
+
+<h4>By Austin Alderete, Deanna Easley, and Elisa Kim</h4>
+
+<p><a 
+href="http://math.gmu.edu/~tsauer/class/447/proj/chap8.pdf">Introduction
+</a><p>
+
+<ol type="1">
+
+<li> For a fin with \(2\times2\) cm dimensions, and thickness of 1 mm, 
+where \(5\, W\) of power is input along the entire left edge, the 
+following plot was produced for the heat distribution based upon the PDE 
+(8.44) in 
+the textbook. The discretization used was \(M = N = 10\) steps in the 
+\(x\) and \(y\) directions. The maximum temperature of the fin was 
+determined to be 1.449356799942421e+02 degrees Celsius above ambient 
+(1.649356799942421e+02 &degC).
+
+<p><a href="http://mason.gmu.edu/~deasley2/project4/poisson.txt">Code for 
+#1 </a><p>
+
+<center><img width=400 
+src="http://mason.gmu.edu/~deasley2/project4/Problem1Image.png" 
+align=center></center>
+
+<p>\( \\ \)<p>
+</li> 
+
+<li>While increasing the size of the fin to \(4\times4\) cm, \(5\, W\) of 
+power was input along the interval \([0,2]\) on the left side of the 
+fin. The maximum temperature here was 28.125325223635254 degrees Celsius 
+above ambient (48.125325223635254 &degC). Increasing \(M = N = 100\), the 
+solution was found to be 46.365017323245070 &degC, a 3.7259001352796% 
+difference using the mean relative error.
+
+<p><a href="http://mason.gmu.edu/~deasley2/project4/poisson2.txt">Code for 
+#2 </a><p>
+
+<center><img width=400 
+src="http://mason.gmu.edu/~deasley2/project4/Problem2Image.png" 
+align=center></center>
+<center><img width=400 
+src="http://mason.gmu.edu/~deasley2/project4/Problem2N=M=100Image.png" 
+align=center></center>
+
+<p>\( \\ \)<p> 
+</li>
+
+<li> After some search, it was determined that the maximum power that can 
+be disipated given the input conditions of problem 2 was found to be 
+around 6.26 Watts, for
+\(M=N=50\), with  79.9165  &degC at the maximum. To claim more significant 
+figures 
+would be to claim unreal precision here given the trend of temperature to 
+decrease slightly with increased number of steps. This maximum occured 
+when 
+moving the chip to the center of the edge. When the chip was kept at the 
+bottom most 2 cm  of the edge, the maximum power that could be dissipated 
+was 5.57 Watts.
+
+
+<p><a href="http://mason.gmu.edu/~deasley2/project4/poisson2.txt">Code for 
+#3 </a><p>
+
+<center><img width=400 
+src="http://mason.gmu.edu/~deasley2/project4/Problem3CenterImage.png" 
+align=center></center>
+
+<p>\( \\ \)<p> 
+</li>
+
+<li> We were asked to replace the aluminum fin with a copper fin, which 
+has thermal conductivity as \(K=3.85\, W/cm\) &degC, and find the maximum 
+power that can be obtained by 4 by 4 cm fin with 2cm power input in the 
+optimal placement, while keeping the maximum temp below 80 degrees.
+
+<p>
+We chose the optimal place to be the center of the edge so that it 
+spreads out more effectively than having the power input on the side.
+<p>
+
+<p>
+As a result, maximum power was \(7.59\, W\) and corresponding maximum 
+temperature was 79.9776 &degC.
+<p> 
+
+<p><a href="http://mason.gmu.edu/~deasley2/project4/heateq4.txt">Code for 
+#4 </a><p>
+
+<center><img width=400 
+src="http://mason.gmu.edu/~deasley2/project4/num4_P=7.58,M=N=79.9776degrees.png" 
+align=center></center>
+
+<p>\( \\ \)<p>
+</li>
+
+<li>
+We were asked to plot the maximum power as the thermal conductivity 
+changes from 1 to 5 \(W/cm\) &degC, while the maximum temperature stays 
+below 80 
+degrees. Through this experiment, we could tell that as the thermal 
+conductivity increases, the maximum powers achieved for the temperature 
+below 80 degrees got increased as well.
+
+<p><a href="http://mason.gmu.edu/~deasley2/project4/heateq5.txt">Code for 
+#5 </a><p>
+
+<center>
+<table width=20% border=1 cellpadding=2 cellspacing=0>
+<tr><td width=10% align=center><b>conductivity</td>    <td width=30% 
+align=center><b>Max. Power</td></tr>
+<tr><td align=center>1.0</td>	<td align=center>4.89</td>	
+<tr><td align=center>1.5</td>	<td align=center>5.63</td>	
+<tr><td align=center>2.0</td>	<td align=center>6.11</td>	
+<tr><td align=center>2.5</td>	<td align=center>6.44</td>	
+<tr><td align=center>3.0</td>	<td align=center>6.69</td>	
+<tr><td align=center>3.5</td>	<td align=center>6.88</td>	
+<tr><td align=center>4.0</td>	<td align=center>7.03</td>	
+<tr><td align=center>4.5</td>	<td align=center>7.16</td>	
+<tr><td align=center>5.0</td>	<td align=center>7.26</td>	
+</table>
+</center>
+
+<p>\( \\ \)<p>
+
+<center><img width=400 
+src="http://mason.gmu.edu/~deasley2/project4/num5_graph.png" 
+align=center></center>
+
+<p>\( \\ \)<p>
+</li>
+
+
+<li>
+We were asked to find the maximum power for the water-cooled fin, as the 
+convective heat transfer coefficient is \(H=0.1\, W/cm^2\) &degC.  For 
+this case, the maximum power was \(43.08\, W\) and its maximum temperature 
+was 79.9918 &degC.
+
+<p>Comparing to problem #4 when we had \(H=0.005\, W/cm^2\) &degC, the 
+maximum power in this case is much higher as the heat transfer coefficient 
+was higher. With the maximum temperature \(7.68\, W\) achieved in problem 
+4 only made the maximum degree to 30.5557 &degC, in this case, which is 
+so much lower than 80 &degC. <p>
+
+<p><a href="http://mason.gmu.edu/~deasley2/project4/heateq6.txt">Code for 
+#6 </a><p>
+
+<center><img width=400 
+src="http://mason.gmu.edu/~deasley2/project4/num6_P=43.08,M=N=79.9918degrees.png" 
+align=center></center>
+
+
+</li>
+<p></p>
+
+<li> 
+Using the same parameters as in part 2, with the power being \(5\, W\), 
+the boundary conditions were set everywhere to the neutral conditions, 
+i.e. no power being supplied. However, a \(2\times 2\) square in the 
+center had power added to it. The equations themselves were not modified 
+as the heat conduction and convection remained the same, but the solution 
+to the equations was set to the power condition as opposed to zero.
+
+<p>Interestingly enough, it seems that the heat distribution is perfectly 
+linear from the true center of the chip within a disk encompassed entirely 
+on the cooling fin. This models the chip being placed at the center of the 
+cooling fin. However, the maximum heat, and in fact, the average heat, 
+seems significantly greater than when chip is connected to the side, 
+likely due to more points being affected by the placement here. This model 
+assumes that the chip has the same properties as the cooling fin.<p>
+
+<p><a 
+href="http://mason.gmu.edu/~deasley2/project4/CoolingFinCenter.txt">Code 
+for #7 </a><p>
+
+
+<center><img width=400 
+src="http://mason.gmu.edu/~deasley2/project4/Problem7Center.png" 
+align=center></center>
+
+<center><img width=400 
+src="http://mason.gmu.edu/~deasley2/project4/Problem72D.png" 
+align=center></center>
+
+</li>
+
+
+</ol>
+
+

@@ -1,0 +1,71 @@
+% Step 5
+clear;
+x0 = [0; 0; 6370; 0.0001];     %initial vector
+c=299792.458;                  %speed of light in vacuum
+ 
+rho = 26570; %radius in km
+phi = [pi/20 0 pi/10 pi/20]; %We want to constrain to the upper hemisphere(0:pi/2)
+theta = [0 pi/20 pi/20 pi/10];
+ 
+%Convert to x,y,z and generate time transit values
+for i = 1:4
+    A(i) = rho*cos(phi(i))*cos(theta(i));
+    B(i) = rho*cos(phi(i))*sin(theta(i));
+    C(i) = rho*sin(phi(i));
+    R(i) = sqrt(A(i)^2+B(i)^2 + (C(i)-6370)^2);
+    t(i) = x0(4) + R(i)/c;
+end
+ 
+%Generate plot of satellite positions
+figure
+scatter3(A,B,C,100,'filled')
+hold on;
+daspect([1 1 1])
+xlabel('x-axis (km)')
+ylabel('y-axis (km)')
+zlabel('z-axis (km)')
+ 
+t0=t;
+t1=t;
+v0 =[0;0;6370]; %Correct position vector
+ 
+%Generate signs for time error  
+mat1 = [1,1,1,1];
+mat2 = unique(perms([-1,1,1,1]), 'rows');
+mat3 = unique(perms([-1,-1,1,1]),'rows');
+mat4 = unique(perms([-1,-1,-1,1]),'rows');
+mat5 = unique(perms([-1,-1,-1,-1]),'rows');
+mat6 = unique(perms([-1,-1,-1,-1]),'rows');
+mat7 = unique(perms([-1,-1,-1,-1]),'rows');
+mat8 = unique(perms([-1,-1,-1,-1]),'rows');
+mat9 = [-1,-1,-1,-1];
+signs = vertcat(mat1,mat2,mat3,mat4,mat5,mat6,mat7,mat8,mat9);
+ 
+ 
+for j = 1:16
+    t = t1 + ((10e-8)*signs(j,:));       %ERROR GENERATION
+    
+    for i=1:30
+        %Find Jacobian
+        D = [2*(x0(1) - A(1)), 2*(x0(2) - B(1)), 2*(x0(3) - C(1)), 2*c^2*(t(1) - x0(4));
+            2*(x0(1) - A(2)), 2*(x0(2) - B(2)), 2*(x0(3) - C(2)), 2*c^2*(t(2) - x0(4));
+            2*(x0(1) - A(3)), 2*(x0(2) - B(3)), 2*(x0(3) - C(3)), 2*c^2*(t(3) - x0(4));
+            2*(x0(1)- A(4)), 2*(x0(2) - B(4)), 2*(x0(3) - C(4)), 2*c^2*(t(4) - x0(4))];
+        
+        %Define equations
+        F = [(x0(1) - A(1))^2 + (x0(2) - B(1))^2 + (x0(3) - C(1))^2 - c^2*(t(1) - x0(4))^2;
+            (x0(1) - A(2))^2 + (x0(2) - B(2))^2 + (x0(3) - C(2))^2 - c^2*(t(2) - x0(4))^2;
+            (x0(1) - A(3))^2 + (x0(2) - B(3))^2 + (x0(3) - C(3))^2 - c^2*(t(3) - x0(4))^2;
+            (x0(1) - A(4))^2 + (x0(2) - B(4))^2 + (x0(3) - C(4))^2 - c^2*(t(4) - x0(4))^2];
+        
+        % Multivariate Newton's Method
+        x0 = x0 + D\-F;
+    end
+    %Find error magnification factor for each configuration
+    FE(j) = norm(x0(1:3)-v0,inf);
+    BE(j) = c*norm(t-t0,inf);
+    EMF(j) = FE/BE;
+end
+ 
+fprintf('condition number = %f \n',max(EMF))
+fprintf('Max distance error = %f km.\n',max(FE))

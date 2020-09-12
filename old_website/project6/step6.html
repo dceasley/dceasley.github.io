@@ -1,0 +1,613 @@
+<HTML><HEAD><TITLE>Project 6 Step 6</TITLE>
+</HEAD>
+<BODY bgColor="#E8E8E8"  link="#800000" vlink="#800000">
+
+<FONT FACE="goudy old style, arial ">
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+
+<BODY bgColor="#f7ddbc" url("http://www.rigelatin.net/global/itbg.jpg")  
+link="#800000" vlink="#800000">
+
+<style type="text/css">
+body{background: url("http://mason.gmu.edu/~deasley2/itbg_d7ecef.png"); 
+margin:40px; padding:0px; border:0px}
+
+<!---------------------------------------------------------------------------------------------------------------------------------->
+
+i{font-family: "Times";}
+
+h1 { color:#0c7f95; font-size: 250%; height:16px; text-align:center}
+h2 { color:#0a8fa0; font-size: 175%; height:16px; text-align:center}
+h3 { color:#0a8fa0; font-size: 148%; height:12px; text-align:center}
+h4 { color:#0a8fa0; font-size: 120%; height:12px; text-align:center}
+.wrapper {width: 620px; margin: auto; }
+
+nav
+{
+display: block;    
+width: 644px;
+margin: 0px 0px 0px -12px;
+text-align:center
+}
+
+nav a
+{
+    display: block;
+    float: left;
+    margin: .25em 5px .25em;
+    width: 82px;
+    height: 30px;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+}
+
+nav a[href="http://mason.gmu.edu/~deasley2/project6/"] {background-image: 
+url("http://mason.gmu.edu/~deasley2/project5/Intro.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step1.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step1.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step2.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step2.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step3.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step3.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step4.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step4.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step5.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step5.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step6.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step6.png");}
+
+nav a:hover
+{
+    background-position: top center;
+}
+
+nav span
+{
+    visibility: hidden;
+}
+</style>
+
+<!---------------------------------------------------------------------------------------------------------------------------------->
+
+<h1>Project 6</h1>
+
+<h2>Google Page Rank</h2>
+
+<h4>By <a href="http://mason.gmu.edu/~rdonoso/" style="text-decoration: 
+none; color: #0a8fa0">Roque Donoso</a>, 
+<a href="http://mason.gmu.edu/~deasley2/" style="text-decoration: none; 
+color: #0a8fa0">Deanna Easley</a>, 
+and <a href="http://mason.gmu.edu/~cnelso17/" style="text-decoration: 
+none; color: #0a8fa0">Conor Nelson </a></h4>
+
+
+<center>
+<div class="wrapper">
+<div class="header">
+     <nav>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/"><span>Intro</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step1.html"><span>Step 
+1</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step2.html"><span>Step 
+2</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step3.html"><span>Step 
+3</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step4.html"><span>Step 
+4</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step5.html"><span>Step 
+5</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step6.html"><span>Step 
+6</span></a>
+     </nav>
+</div>
+<p><br><br></p>
+</div>
+</center>
+
+<!---------------------------------------------------------------------------------------------------------------------------------->
+
+<h3>Step 6</h3>
+
+<p><font color=#0a8fa0><b>Design your own network, compute page ranks, and 
+analyze according to the preceding
+questions.</b></font></p> 
+
+<P>
+	We design the following network:
+
+	<center>
+
+			<img height=500px src="http://mason.gmu.edu/~rdonoso/Network2.png">
+
+	</center>
+</p>
+
+<p>
+	The adjacent matrix \(A\) is given by
+
+		\[A=
+			\left(
+				\begin{matrix}
+					  0  &  1  &  0  &  0  &  1  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0\\
+					  0  &  0  &  1  &  0  &  0  &  1  &  1  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0\\
+					  0  &  0  &  0  &  0  &  0  &  1  &  1  &  1  &  0  &  0  &  0  &  0  &  0  &  0  &  0\\
+					  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  1  &  0  &  0  &  0\\
+					  1  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  1  &  0  &  0\\
+					  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  0\\
+					  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  1  &  0  &  0  &  0\\
+					  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  0\\
+					  1  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0\\
+					  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  0\\
+					  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1\\
+					  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  1\\
+					  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  0  &  0\\
+					  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  1\\
+					  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0
+				\end{matrix}
+			\right)
+		\]
+</p>
+<hr>
+<p>
+	We compute page ranks with different jump probabilities:
+
+</p>
+
+	<div align=center style="font-size: 12px">
+		<TABLE WIDTH=40% BORDER=1  BORDERCOLOR="#808080" CELLPADDING=5 CELLSPACING=1>
+			<tr>
+				<td>\(p/r\)</td>
+				<td><b>0</b></td>
+				<td><b>.15</b></td>
+				<td><b>.5</b></td>
+				<td><b>.9</b></td>
+				<td><b>.99</b></td>
+				<td><b>1</b></td>
+			</tr>
+			<tr>
+				<td><b>1</b></td>
+				<td>0.0209</td>
+				<td>0.0312</td>
+				<td>0.0524</td>
+				<td>0.0652</td>
+				<td>0.0666</td>
+				<td>0.8609 \(\times 10^{15}\)</td>
+
+			</tr>
+			<tr>
+				<td><b>2</b></td>
+				<td>0.0104</td>
+				<td>0.0233</td>
+				<td>0.0464</td>
+				<td>0.0633</td>
+				<td>0.0663</td>
+				<td>0.7266 \(\times 10^{15}\)</td>
+			</tr>
+			<tr>
+				<td><b>3</b></td>
+				<td>0.0035</td>
+				<td>0.0166</td>
+				<td>0.0411</td>
+				<td>0.0621</td>
+				<td>0.0662</td>
+				<td>0.7266 \(\times 10^{15}\)</td>
+			</tr>
+			<tr>
+				<td><b>4</b></td>
+				<td>0</td>
+				<td>0.0100</td>
+				<td>0.0333</td>
+				<td>0.0600</td>
+				<td>0.0660</td>
+				<td>0.7266 \(\times 10^{15}\)</td>
+			</tr>
+			<tr>
+				<td><b>5</b></td>
+				<td>0.0598</td>
+				<td>0.0041</td>
+				<td>0.0645</td>
+				<td>0.0667</td>
+				<td>0.0667</td>
+				<td>0.7266 \(\times 10^{15}\)</td>
+			</tr>
+			<tr>
+				<td><b>6</b></td>
+				<td>0.0412</td>
+				<td>0.0483</td>
+				<td>0.0635</td>
+				<td>0.0675</td>
+				<td>0.0668</td>
+				<td>0.7266 \(\times 10^{15}\)</td>
+			</tr>
+			<tr>
+				<td><b>7</b></td>
+				<td>0.1088</td>
+				<td>0.1168</td>
+				<td>0.1033</td>
+				<td>0.0736</td>
+				<td>0.0673</td>
+				<td>0.7266 \(\times 10^{15}\)</td>
+			</tr>
+			<tr>
+				<td><b>8</b></td>
+				<td>0.0556</td>
+				<td>0.0686</td>
+				<td>0.0743</td>
+				<td>0.0687</td>
+				<td>0.0669</td>
+				<td>0.7266 \(\times 10^{15}\)</td>
+			</tr>
+			<tr>
+				<td><b>9</b></td>
+				<td>0</td>
+				<td>0.0100</td>
+				<td>0.0333</td>
+				<td>0.0600</td>
+				<td>0.0660</td>
+				<td>0.7266 \(\times 10^{15}\)</td>
+			</tr>
+			<tr>
+				<td><b>10</b></td>
+				<td>0.0731</td>
+				<td>0.0634</td>
+				<td>0.0622</td>
+				<td>0.0657</td>
+				<td>0.0666</td>
+				<td>0.7266 \(\times 10^{15}\)</td>
+			</tr>
+			<tr>
+				<td><b>11</b></td>
+				<td>0.1308</td>
+				<td>0.1339</td>
+				<td>0.1132</td>
+				<td>0.0758</td>
+				<td>0.0676</td>
+				<td>-4.3311 \(\times 10^{15}\)</td>
+			</tr>
+			<tr>
+				<td><b>12</b></td>
+				<td>0.0544</td>
+				<td>0.0639</td>
+				<td>0.0675</td>
+				<td>0.0667</td>
+				<td>0.0667</td>
+				<td>-4.3311 \(\times 10^{15}\)</td>
+			</tr>
+			<tr>
+				<td><b>13</b></td>
+				<td>0.1044</td>
+				<td>0.0859</td>
+				<td>0.0724</td>
+				<td>0.0686</td>
+				<td>0.0669</td>
+				<td>-4.3311 \(\times 10^{15}\)</td>
+			</tr>
+			<tr>
+				<td><b>14</b></td>
+				<td>0.1671</td>
+				<td>0.1288</td>
+				<td>0.0797</td>
+				<td>0.0669</td>
+				<td>0.0667</td>
+				<td>4.1603 \(\times 10^{15}\)</td>
+			</tr>
+			<tr>
+				<td><b>15</b></td>
+				<td>0.1671</td>
+				<td>0.1397</td>
+				<td>0.0928</td>
+				<td>0.0694</td>
+				<td>0.0669</td>
+				<td>1.4325 \(\times 10^{15}\)</td>
+			</tr>
+
+		</table>
+	</div>
+<hr>
+<p>
+	We now look at the following case: Suppose that Page 7 in the network wanted to improve its page rank,
+
+	compared with its competitor Page 6 - say, by persuading Pages 2 and 12 to more prominently display its
+
+	links to Page 7.
+
+	This translates to the following adjacent matrix \(A\), where the entries \(A(2,7)\) and \(A(12,7)\) are equal to 2 as opposed to 1:
+
+		\[
+			\left(
+				\begin{matrix}
+					  0  &  1  &  0  &  0  &  1  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0\\
+					  0  &  0  &  1  &  0  &  0  &  1  &  2  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0\\
+					  0  &  0  &  0  &  0  &  0  &  1  &  1  &  1  &  0  &  0  &  0  &  0  &  0  &  0  &  0\\
+					  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  1  &  0  &  0  &  0\\
+					  1  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  1  &  0  &  0\\
+					  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  0\\
+					  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  1  &  0  &  0  &  0\\
+					  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  0\\
+					  1  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0\\
+					  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  0\\
+					  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1\\
+					  0  &  0  &  0  &  0  &  0  &  0  &  2  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  1\\
+					  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  0  &  1  &  0  &  0  &  0  &  0  &  0\\
+					  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0  &  1\\
+					  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1  &  0
+				\end{matrix}
+			\right)
+		\]
+</p>
+
+<p>
+	We then compare page ranks for our original ([4]) to those that occur when we "increase the probability that 7 will be chosen" ([5]).
+
+	Heres is the comparison between the two:
+
+	(Note that negative means that the probability went up after increasing the probability).
+<p>
+
+<div align=center style="font-size: 12px">
+<TABLE WIDTH=50% BORDER=1  BORDERCOLOR="#808080" CELLPADDING=5 CELLSPACING=1>
+<tr> <td><b>p[4] - p[5]</b></td>	<td><b>0.0[4] - 0.0[5]</b></td>	<td><b>0.15[4] - 0.15[5]</b></td>	<td><b>0.5[4] - 0.5[5]</b></td>	<td><b>0.9[4] - 0.9[5]</b></td>	</tr>
+<tr>
+	<td><b>1</b></td>
+	<td>0.0720</td>
+	<td>0.0348</td>
+	<td>0.0020</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td><b>2</b></td>
+	<td>0.0360</td>
+	<td>0.0148</td>
+	<td>0.0005</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td><b>3</b></td>
+	<td>0.0960</td>
+	<td>0.1678</td>
+	<td>0.1936</td>
+	<td>0.0527</td>
+</tr>
+<tr>
+	<td><b>4</b></td>
+	<td>0</td>
+	<td>0</td>
+	<td>0</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td><b>5</b></td>
+	<td>0.2159</td>
+	<td>0.1227</td>
+	<td>0.0121</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td><b>6</b></td>
+	<td>0.2540</td>
+	<td>0.2761</td>
+	<td>0.2292</td>
+	<td>0.0545</td>
+</tr>
+<tr>	<td><b>7</b></td>
+	<td>-1.2218</td>
+	<td>-1.2406</td>
+	<td>-0.8573</td>
+	<td>-0.2098</td>
+</tr>
+<tr>
+	<td><b>8</b></td>
+	<td>-0.5789</td>
+	<td>-0.4795</td>
+	<td>-0.1821</td>
+	<td>-0.0087</td>
+</tr>
+<tr>
+	<td><b>9</b></td>
+	<td>0</td>
+	<td>0</td>
+	<td>0</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td><b>10</b></td>
+	<td>0.2519</td>
+	<td>0.1427</td>
+	<td>0.0136</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td><b>11</b></td>
+	<td>-0.0254</td>
+	<td>0.1109</td>
+	<td>0.2241</td>
+	<td>0.0572</td>
+</tr>
+<tr>
+	<td><b>12</b></td>
+	<td>-0.6110</td>
+	<td>-0.5271</td>
+	<td>-0.2143</td>
+	<td>-0.0105</td>
+</tr>
+<tr>
+	<td><b>13</b></td>
+	<td>0.3598</td>
+	<td>0.2540</td>
+	<td>0.0464</td>
+	<td>0.0003</td>
+</tr>
+<tr>
+	<td><b>14</b></td>
+	<td>0.5757</td>
+	<td>0.5159</td>
+	<td>0.1774</td>
+	<td>0.0058</td>
+</tr>
+<tr>
+	<td><b>15</b></td>
+	<td>0.5757</td>
+	<td>0.6069</td>
+	<td>0.3548</td>
+	<td>0.0585</td>
+</tr>
+</table>
+</div>
+
+</p>
+<hr>
+<p>
+	Finally, we study the effect of removing Page 10 from our network, meaning that all links to and from
+
+	Page 10 are deleted. Once again, we compare page ranks for our original ([4]) to those for which Page 10 is
+
+	removed ([6]). Here's the comparision between the two:
+
+</p>
+<div align=center style="font-size: 12px">
+		<TABLE WIDTH=50% BORDER=1  BORDERCOLOR="#808080" CELLPADDING=5 CELLSPACING=1>
+			<tr>
+				<td><b>p[4] - p[56]</td>
+				<td><b>0.0[4] - 0.0[6]</b></td>
+				<td><b>0.15[4] - 0.15[6]</b></td>
+				<td><b>0.5[4] - 0.5[6]</b></td>
+				<td><b>0.9[4] - 0.9[6]</b></td>
+
+			</tr>
+			<tr>
+				<td><b>1</b></td>
+				<td>-8.0807</td>
+				<td>-4.7461</td>
+				<td>-1.6669</td>
+				<td>-0.6044</td>
+
+
+			</tr>
+			<tr>
+				<td><b>2</b></td>
+				<td>-4.0404</td>
+				<td>-2.0885</td>
+				<td>-0.6548</td>
+				<td>-0.4588</td>
+
+			</tr>
+			<tr>
+				<td><b>3</b></td>
+				<td>-1.3468</td>
+				<td>-0.6632</td>
+				<td>-0.3472</td>
+				<td>-0.4439</td>
+
+			</tr>
+			<tr>
+				<td><b>4</b></td>
+				<td>0</td>
+				<td>-0.0714</td>
+				<td>-0.2381</td>
+				<td>-0.4286</td>
+
+			</tr>
+			<tr>
+			<td><b>5</b></td>
+			<td>-14.0727</td>
+			<td>-8.9357</td>
+ 			<td>-3.3260</td>
+				<td>0.8645</td>
+
+			</tr>
+			<tr>
+				<td><b>6</b></td>
+				<td>1.8596</td>
+				<td>1.8453</td>
+				<td>1.1493</td>
+				<td>-0.1304</td>
+
+			</tr>
+			<tr>
+				<td><b>7</b></td>
+				<td>2.4044</td>
+				<td>1.8319</td>
+				<td>0.1928</td>
+				<td>-0.4896</td>
+
+			</tr>
+			<tr>
+				<td><b>8</b></td>
+				<td>0.7533</td>
+				<td>0.4889</td>
+				<td>-0.3073</td>
+				<td>-0.4893</td>
+
+			</tr>
+			<tr>
+				<td><b>9</b></td>
+				<td>0</td>
+				<td>-0.0714</td>
+				<td>-0.2381</td>
+				<td>-0.4286</td>
+
+			</tr>
+			<tr>
+				<td><b>11</b></td>
+				<td>5.7392</td>
+				<td>4.0164</td>
+				<td>1.4084</td>
+				<td>-0.1716</td>
+
+			</tr>
+			<tr>
+				<td><b>12</b></td>
+				<td>1.2022</td>
+				<td>0.6768</td>
+				<td>-0.2494</td>
+				<td>-0.4745</td>
+
+			</tr>
+			<tr>
+				<td><b>13</b></td>
+				<td>-4.8104</td>
+				<td>-3.7602</td>
+				<td>-1.7245</td>
+				<td>-0.6282</td>
+
+			</tr>
+			<tr>
+				<td><b>14</b></td>
+				<td>6.5407</td>
+				<td>2.3198</td>
+				<td>-0.2307</td>
+				<td>-0.4762</td>
+
+			</tr>
+			<tr>
+				<td><b>15</b></td>
+				<td>6.5407</td>
+				<td>2.8132</td>
+				<td>0.0148</td>
+				<td>-0.47678</td>
+
+			</tr>
+
+		</table>
+	</div>
+<p>
+	For this entire step, we use <a href="http://mason.gmu.edu/~rdonoso/GMatrix.m" target="_blank">GMatrix.m</a>
+</p>
+
+</body>
+</html>

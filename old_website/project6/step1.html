@@ -1,0 +1,151 @@
+<HTML><HEAD><TITLE>Project 6 Step 1</TITLE>
+</HEAD>
+<BODY bgColor="#E8E8E8"  link="#800000" vlink="#800000">
+
+<FONT FACE="goudy old style, arial ">
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+
+<BODY bgColor="#f7ddbc" url("http://www.rigelatin.net/global/itbg.jpg")  
+link="#800000" vlink="#800000">
+
+<style type="text/css">
+body{background: url("http://mason.gmu.edu/~deasley2/itbg_d7ecef.png"); 
+margin:40px; padding:0px; border:0px}
+
+<!---------------------------------------------------------------------------------------------------------------------------------->
+
+i{font-family: "Times";}
+
+h1 { color:#0c7f95; font-size: 250%; height:16px; text-align:center}
+h2 { color:#0a8fa0; font-size: 175%; height:16px; text-align:center}
+h3 { color:#0a8fa0; font-size: 148%; height:12px; text-align:center}
+h4 { color:#0a8fa0; font-size: 120%; height:12px; text-align:center}
+.wrapper {width: 620px; margin: auto; }
+
+nav
+{
+display: block;    
+width: 644px;
+margin: 0px 0px 0px -12px;
+text-align:center
+}
+
+nav a
+{
+    display: block;
+    float: left;
+    margin: .25em 5px .25em;
+    width: 82px;
+    height: 30px;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+}
+
+nav a[href="http://mason.gmu.edu/~deasley2/project6/"] {background-image: 
+url("http://mason.gmu.edu/~deasley2/project5/Intro.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step1.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step1.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step2.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step2.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step3.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step3.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step4.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step4.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step5.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step5.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step6.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step6.png");}
+
+nav a:hover
+{
+    background-position: top center;
+}
+
+nav span
+{
+    visibility: hidden;
+}
+</style>
+
+<!---------------------------------------------------------------------------------------------------------------------------------->
+
+<h1>Project 6</h1>
+
+<h2>Google Page Rank</h2>
+
+<h4>By <a href="http://mason.gmu.edu/~rdonoso/" style="text-decoration: 
+none; color: #0a8fa0">Roque Donoso</a>, 
+<a href="http://mason.gmu.edu/~deasley2/" style="text-decoration: none; 
+color: #0a8fa0">Deanna Easley</a>, 
+and <a href="http://mason.gmu.edu/~cnelso17/" style="text-decoration: 
+none; color: #0a8fa0">Conor Nelson </a></h4>
+
+
+<center>
+<div class="wrapper">
+<div class="header">
+     <nav>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/"><span>Intro</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step1.html"><span>Step 
+1</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step2.html"><span>Step 
+2</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step3.html"><span>Step 
+3</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step4.html"><span>Step 
+4</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step5.html"><span>Step 
+5</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step6.html"><span>Step 
+6</span></a>
+     </nav>
+</div>
+<p><br><br></p>
+</div>
+</center>
+
+<!---------------------------------------------------------------------------------------------------------------------------------->
+
+<h3>Step 1</h3>
+
+<p><font color=#0a8fa0><b>Prove that the google matrix \(G\) is a 
+stochastic matrix.</b></font></p>
+
+Recall the three axioms of probability:
+<ol type="1">
+
+<li> \(0 \leq P(E) \leq 1\) [\(E\) is an event]</li>
+
+<li> \(P_n(S)=1\) [Probability of the Sample space occurring]</li>
+<li> \(\displaystyle\sum^{n=1}_{i=1} P(E_i)=1 \)</li>
+</ol>
+A stochastic matrix is a square matrix of nonnegative real numbers such 
+that the sum of the entries in each column is equal to 1. This is true for 
+the google matrix \(G\), as shown by the implementation of the command 
+below.
+
+<p>
+>> GMatrix(.15,1)
+</p>
+
+\[stocheck=\left[ \begin{array}{@{}*{15}{c}@{}}
+    1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1
+\end{array} \right]\]
+
+</body>
+</html>

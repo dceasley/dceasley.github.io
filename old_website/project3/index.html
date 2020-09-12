@@ -1,0 +1,257 @@
+<HTML><HEAD><TITLE>Project 3
+</TITLE>
+</HEAD>
+<BODY bgColor="#E8E8E8"  link="#800000" vlink="#800000"> 
+
+<FONT FACE="goudy old style, arial ">
+<script type="text/javascript" 
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"> 
+</script>
+
+<h1>Project 3</h1>
+
+<h2>Celestial Mechanics</h2>
+
+<h4>By Deanna Easley and Theodore Faust</h4>
+
+
+In this project, we use an ODE solver to model the interaction of objects 
+under gravity. 
+
+The magnitude of the gravitational force between any two objects with 
+masses \(m_1\) and \(m_2\) is 
+
+\[F=\frac{gm_1m_2}{r^2},\]
+where \(r\) is the distance between the masses. 
+
+If mass 1 is at position \((x_1,y_1)\), and mass \(2\) at position 
+\((x_2,y_2)\), the direction of \(F_{12}\) (the force of mass 2 on mass 1) 
+is described by the unit vector
+\[\left(\frac{x_2-x_1}{\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}},\frac{y_2-y_1}{\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}}\right),\]
+and the direction of \(F_{21}\) is its negation. 
+
+Therefore, since \(\vec{F}=m\vec{a}\),
+\begin{align*}
+m_1a_{x_1} 
+&=\left(\frac{gm_1m_2}{r^2}\right)\left(\frac{x_2-x_1}{\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}}\right)\\
+&=\left(\frac{gm_1m_2}{(x_2-x_1)^2+(y_2-y_1)^2}\right)\left(\frac{x_2-x_1}{\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}}\right)\\
+&=\frac{gm_1m_2(x_2-x_1)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}}
+\end{align*}
+thus,
+\[a_{x_1}=x_1''=\frac{gm_2(x_2-x_1)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}},\]
+and likewise, we find that,
+\[a_{y_1}=y_1''=\frac{gm_2(y_2-y_1)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}},\]
+\[a_{x_2}=x_2''=\frac{gm_1(x_1-x_2)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}},\]
+\[a_{y_2}=y_2''=\frac{gm_1(y_1-y_2)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}}.\]
+
+This is a system of four second-order ODEs. However, it is not possible 
+for most ODE solvers to solve higher-order systems of ODEs. We therefore 
+modify the system by introducing the variables \(v_{x_1}=x_1'\), 
+\(v_{x_2}=x_2'\), \(v_{y_1}=y_1'\) and \(v_{y_2}=y_2'\). The obtain the 
+following system of eight first-order ODEs: 
+\begin{eqnarray*}
+x_1' &=& v_{x_1},\\
+v_{x_1}' &=& \frac{gm_2(x_2-x_1)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}},\\
+y_1' &=& v_{y_1},\\
+v_{y_1}' &=& \frac{gm_2(y_2-y_1)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}},\\
+x_2' &=& v_{x_2},\\
+v_{x_2}' &=& \frac{gm_1(x_1-x_2)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}},\\
+y_2' &=& v_{y_2},\\
+v_{y_2}' &=& \frac{gm_1(y_1-y_2)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}}.
+\end{eqnarray*}
+
+
+While closed form solutions exist for the two-body problem, it was shown 
+in the late nineteenth century by Henri Poincare that it is effectively 
+impossible to find a closed form solution for the \(n\)-body problem for 
+any \(n \ge 3\). Therefore, we must use numerical ODE solving algorithms 
+such as Euler's Method or the Trapezoid Method to determine the dynamics 
+of the system. 
+
+<hr>
+<h3 align="center"><b>9. Two-body Problem</b></h3>
+
+This problem uses the following system of 8 ODEs:
+\begin{eqnarray*}
+x_1' &=& v_{x_1} \\ 
+v_{x_1}' &=& \frac{gm_2(x_2-x_1)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}} \\
+y_1' &=& v_{y_1} \\
+v_{y_1}' &=& \frac{gm_2(y_2-y_1)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}} \\
+x_2' &=& v_{x_2}  \\
+v_{x_2}' &=& \frac{gm_1(x_1-x_2)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}} \\
+y_2' &=& v_{x_2} \\
+v_{y_2}' &=& \frac{gm_1(y_1-y_2)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}}
+\end{eqnarray*}
+
+For this problem we set the masses to \(m_1 = 0.03\), \(m_2 = 0.3\), and 
+plot the trajectories with initial conditions \((x_1 , y_1 ) = (2, 2)\), 
+\((x'_1, y'_1) = (0.2, -0.2)\) and \((x_2,y_2) = (0,0)\),\((x'_2,y'_2) = 
+(-0.02,0.02)\).
+
+<center><p>
+<a  href="http://mason.gmu.edu/~deasley2/project3/orbit2_euler.txt"> 
+Euler's Method 
+</a>
+</p>
+
+<iframe width="420" height="315" 
+src="https://www.youtube.com/embed/FEZel4Q02nM" frameborder="0" 
+allowfullscreen></iframe></center>
+
+
+<center><p>
+<a 
+href="http://mason.gmu.edu/~deasley2/project3/orbit2_trap.txt">Trapezoid 
+Method</a>
+</p>
+
+<iframe width="420" height="315" 
+src="https://www.youtube.com/embed/bowkwkYxeDs" frameborder="0" 
+allowfullscreen></iframe></center>
+
+<hr>
+
+<h3 align="center"><b>10. Three-Body Problem</b></h3>
+
+In the three-body problem, we are considering the interaction of three 
+masses, \(m_1\), \(m_2\), \(m_3\), with positions \((x_1,y_1)\), 
+\((x_2,y_2)\), \((x_3,y_3)\), respectively.
+Thankfully, the differential equations are not much more complicated in 
+this case. Since the net force on an object is the vector sum of the 
+forces, for instance, the force acting on the object located at 
+\((x_1,y_1)\) has \(x\) component given by
+\[F_{1x}=\frac{gm_1m_2(x_2-x_1)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}}+\frac{gm_1m_3(x_3-x_1)}{((x_3-x_1)^2+(y_3-y_1)^2)^{3/2}},\]
+which yields the system of ODEs 
+\begin{eqnarray*}
+x_1' &=& v_{x_1} \\ 
+v_{x_1}' &=& \frac{gm_2(x_2-x_1)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}} + 
+\frac{gm_3(x_3-x_1)}{((x_3-x_1)^2+(y_3-y_1)^2)^{3/2}} \\
+y_1' &=& v_{y_1} \\
+v_{y_1}' &=& \frac{gm_2(y_2-y_1)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}}+ 
+\frac{gm_3(y_3-y_1)}{((x_3-x_1)^2+(y_3-y_1)^2)^{3/2}} \\
+x_2' &=& v_{x_2}  \\
+v_{x_2}' &=& \frac{gm_1(x_1-x_2)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}} + 
+\frac{gm_3(x_3-x_2)}{((x_3-x_2)^2+(y_3-y_2)^2)^{3/2}} \\
+y_2' &=& v_{x_2} \\
+v_{y_2}' &=& \frac{gm_1(y_1-y_2)}{((x_2-x_1)^2+(y_2-y_1)^2)^{3/2}} + 
+\frac{gm_3(y_3-y_2)}{((x_3-x_2)^2+(y_3-y_2)^2)^{3/2}} \\
+x_3' &=& v_{x_3}  \\
+v_{x_3}' &=& \frac{gm_1(x_1-x_3)}{((x_3-x_1)^2+(y_3-y_1)^2)^{3/2}} + 
+\frac{gm_3(x_2-x_3)}{((x_3-x_2)^2+(y_3-y_2)^2)^{3/2}} \\
+y_3' &=& v_{x_3} \\
+v_{y_3}' &=& \frac{gm_1(y_1-y_3)}{((x_3-x_1)^2+(y_3-y_1)^2)^{3/2}} + 
+\frac{gm_3(y_2-y_3)}{((x_3-x_2)^2+(y_3-y_2)^2)^{3/2}}. 
+\end{eqnarray*}
+
+Setting the masses to \(m_2 = 0.3\) and \(m_1=m_3 = 0.03\), we achieve the 
+following results
+<ol type="a">
+  <li>Below is the plot of the trajectories with initial conditions 
+\((x_1,y_1) = (2,2)\), \((x'_1,y'_1) = (0.2,-0.2)\), \((x_2,y_2) = 
+(0,0)\), \((x'_2,y'_2) = (0,0)\) and \((x_3,y_3) = (-2,-2)\), 
+\((x'_3,y'_3)=(-0.2,0.2)\).</li>
+
+<center>
+<p>
+<a href="http://mason.gmu.edu/~deasley2/project3/orbit3_euler.txt"> 
+Euler's Method</a>
+</p>
+<iframe width="420" height="315" 
+src="https://www.youtube.com/embed/Ojwi9hqWF3s" frameborder="0" 
+allowfullscreen></iframe>
+
+<p>
+<a  href="http://mason.gmu.edu/~deasley2/project3/orbit3_trap.txt"> 
+Trapezoid Method </a>
+</p>
+
+<iframe width="420" height="315" 
+src="https://www.youtube.com/embed/VV4xEgbB6vU" frameborder="0" 
+allowfullscreen></iframe></center>
+
+<p>\(\\\)</p>
+
+  <li>Below is the plot with the change in the initial condition of 
+\(x'_1\) to 0.20001. 
+Here the trajectories start deviating from the original elliptical paths. 
+Specifically, the orbits start drifting as a result of the center moving.
+</li>
+
+<center>
+<p>
+<a  href="http://mason.gmu.edu/~deasley2/project3/orbit3_euler.txt"> 
+Euler's Method </a>
+</p>
+<iframe width="420" height="315" 
+src="https://www.youtube.com/embed/ZxNj45J6sgQ" frameborder="0" 
+allowfullscreen></iframe>
+
+<p>
+<a  href="http://mason.gmu.edu/~deasley2/project3/orbit3_trap.txt"> 
+Trapezoid Method </a>
+</p>
+<iframe width="420" height="315" 
+src="https://www.youtube.com/embed/DM0_J9cz9Yk" frameborder="0" 
+allowfullscreen></iframe>
+
+</center>
+
+</ol>
+
+<hr>
+
+<h3 align="center"><b>11. Three-Body Figure-Eight Orbit</b></h3>
+In this configuration, three bodies of equal mass chase one another along 
+a single figure-eight loop.
+In this case, we set the masses to \(m_1 = m_2 = m_3 = 1\) and gravity \(g 
+= 1\). <a  href="http://mason.gmu.edu/~deasley2/project3/orbit8.txt"> See 
+code here.</a>
+
+<ol type="a">
+<li>Below is the plot of the trajectory with initial conditions 
+\((x_1,y_1) = (-0.970,0.243)\), \((x'_1,y'_1) = (-0.466,-0.433)\), 
+\((x_2,y_2) = (-x_1,-y_1)\), \((x'_2,y'_2) = (x'_1,y'_1)\) and \((x_3,y_3) 
+= (0,0)\), \((x'_3,y'_3) = (-2x'_1,-2y'_1)\).
+</li>
+
+
+<center><p><iframe width="420" height="315" 
+src="https://www.youtube.com/embed/r99JfaQ4YW4" frameborder="0" 
+allowfullscreen></iframe></p></center>
+
+
+<li>Below we can see that the trajectories are indeed sensitive to small 
+changes in initial conditions, as shown by changing \(x'_3\) by 
+\(10^{-k}\) for \(1\le k\le 5\).</li>
+
+<dl>
+<dt>\(\underline{\boldsymbol{k=1}}\):<t>
+In the animation below, the figure-eight pattern seems to persist while 
+shifting towards the right until it runs off the screen.</dt>
+<center><iframe width="420" height="315" 
+src="https://www.youtube.com/embed/JAhJNFrYbUo" frameborder="0" 
+allowfullscreen></iframe></center>
+
+<dt><u>\(\underline{\boldsymbol{k=2}}\)</u>:</dt>
+<center><iframe width="420" height="315" 
+src="https://www.youtube.com/embed/B9X-hZrbBdY" frameborder="0" 
+allowfullscreen></iframe></center>
+
+<dt>\(\underline{\boldsymbol{k=3}}\):</dt>
+<center><iframe width="420" height="315" 
+src="https://www.youtube.com/embed/0ArHy007GWQ" frameborder="0" 
+allowfullscreen></iframe></center>
+<p>In the cases \(k=2\) and \(k=3\), the figure-eight pattern persists at 
+first while shifting to the right until the orbits destabilize 
+catastrophically, as the bodies run off to infinity.</p>
+  <dt><u>\(\underline{\boldsymbol{k=4}}\)</u>: 
+The figure-eight pattern behaves similarly as in the cases \(k=2\) and 
+\(k=3\) except for the fact that no shifting occurs.</dt>
+<center><iframe width="420" height="315" 
+src="https://www.youtube.com/embed/e0Mxh7GjnGQ" frameborder="0" 
+allowfullscreen></iframe></center>
+</dl>
+</ol>
+
+</BODY></HTML>
+

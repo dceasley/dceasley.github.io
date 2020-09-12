@@ -1,0 +1,497 @@
+<HTML><HEAD><TITLE>Project 2
+</TITLE>
+</HEAD>
+<BODY bgColor="#E8E8E8"  link="#800000" vlink="#800000"> 
+
+<FONT FACE="goudy old style, arial ">
+<script type="text/javascript" 
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"> 
+</script>
+
+<h1>Project 2</h1>
+
+<h2>Reality Check 4: GPS, Conditioning, and Nonlinear Least Squares</h2>
+
+<h4>By Deanna Easley and Wesley Toler</h4>
+
+Global Positioning System (GPS): A network of satellites, orbiting Earth 
+at an altitude of 20,200 km, transmits time-synchronized signals. A GPS 
+receiver receives a number of these signals. It then computes the time 
+difference between transmission and reception of the signal, and then 
+finds the magnitude of the distance of each satellite from the GPS 
+receiver by multiplying the time difference by \(c\) (the speed of light 
+in a vacuum and the assumed speed of the signal).
+
+\[c\approx299792.458\hbox{ km/s}\]
+
+A GPS receiver's internal clock is inaccurate compared to a satellite 
+highly accurate on-board clock. We introduce another variable \(d\), 
+representing the time difference between a GPS receiver's internal clock 
+and the very precise synchronized time of the GPS network. We now have the 
+following simultaneous equations (4.38) for the unknown \(x,y,z\), and 
+\(d\) 
+values:
+\begin{eqnarray*}
+(x-A_1 )^2+(y-B_1 )^2+(z-C_1 )^2=(c(t_1-d))^2\\
+(x-A_2 )^2+(y-B_2 )^2+(z-C_2 )^2=(c(t_2-d))^2\\
+(x-A_3 )^2+(y-B_3 )^2+(z-C_3 )^2=(c(t_3-d))^2\\
+(x-A_4 )^2+(y-B_4 )^2+(z-C_4 )^2=(c(t_4-d))^2
+\end{eqnarray*}
+
+These equations can be solved for the unknown values in two different 
+ways: Using the Multivariate Newton's Method, and using the Quadratic 
+Method.
+
+For the next two problems, let us consider a case where there are four 
+satellites with the following locations (in kilometers) and transit times 
+(in seconds):
+
+<p>\(\\\)<p>
+<center>
+<table width=52% border=1 cellpadding=2 cellspacing=0>
+<tr><td width=10% align=center><b>Satellite</td>	<td width=23% 
+align=center><b>\(x\)-coordinate \((A_i)\)</td>	
+<td width=23% align=center><b>\(y\)-coordinate \((B_i)\)</td>	<td 
+width=23% align=center><b>\(z\)-coordinate \((C_i)\)</td>
+<td width=21% align=center><b>Transit time \((t_i)\)</td></tr>
+<tr><td align=center>S1</td>	<td align=center>15600</td>	<td 
+align=center>7540</td>	<td align=center>20140</td>	<td 
+align=center>0.07074</td>
+<tr><td align=center>S2</td>	<td align=center>18760</td>	<td 
+align=center>2750</td>	<td align=center>18610</td>	<td 
+align=center>0.07220</td>
+<tr><td align=center>S3</td>	<td align=center>17610</td>	<td 
+align=center>14630</td>	<td align=center>13480</td>	<td 
+align=center>0.07690</td>
+<tr><td align=center>S4</td>	<td align=center>19170</td>	<td 
+align=center>610</td>	<td align=center>18390</td>	<td 
+align=center>0.07242</td>
+</table>
+</center>
+<p>\(\\\)<p>
+
+<hr>
+<h3 align="center"><b>Step 1: Multivariate Newton's Method</b></h3>
+
+To use the Multivariate Newton's method, we collect all our terms to one 
+side of each  equation. Define \(f_j\) (for \(j=1,\dots,4\)) to be the 
+resulting expression in the \(j\)th equation:
+\begin{eqnarray*}
+f_1=(x-A_1)^2+(y-B_1)^2+(z-C_1)^2-((c(t_1-d))^2=0\\
+f_2=(x-A_2)^2+(y-B_2)^2+(z-C_2)^2-((c(t_2-d))^2=0\\
+f_3=(x-A_3)^2+(y-B_3)^2+(z-C_3)^2-((c(t_3-d))^2=0\\
+f_4=(x-A_4)^2+(y-B_4)^2+(z-C_4)^2-((c(t_4-d))^2=0
+\end{eqnarray*}
+
+The Jacobian matrix associated with \(f_1,f_2,f_3,f_4\) is defined as 
+follows:
+\[DF(x)=\left[ \begin{array}{c c c c}
+     \frac{\partial f_1}{\partial x} & \frac{\partial f_1}{\partial y} & 
+     \frac{\partial f_1}{\partial z} & \frac{\partial f_1}{\partial d}\\
+     \frac{\partial f_2}{\partial x} & \frac{\partial f_2}{\partial y} & 
+     \frac{\partial f_2}{\partial z} & \frac{\partial f_2}{\partial d}\\
+     \frac{\partial f_3}{\partial x} & \frac{\partial f_3}{\partial y} & 
+     \frac{\partial f_3}{\partial z} & \frac{\partial f_3}{\partial d}\\
+     \frac{\partial f_4}{\partial x} & \frac{\partial f_4}{\partial y} & 
+     \frac{\partial f_4}{\partial z} & \frac{\partial f_4}{\partial d}
+  \end{array} \right]\]
+  A straightforward computation yields
+  \[DF(x)=\left[ \begin{array}{c c c c}
+     2(x-A_1) & 2(y-B_1) & 2(z-C_1) & 2c^2(t_1-d)\\
+     2(x-A_2) & 2(y-B_2) & 2(z-C_2) & 2c^2(t_2-d)\\
+     2(x-A_3) & 2(y-B_3) & 2(z-C_3) & 2c^2(t_3-d)\\
+     2(x-A_4) & 2(y-B_4) & 2(z-C_4) & 2c^2(t_4-d)
+  \end{array} \right]\]
+
+With this knowledge, we can carry out our iterations.
+\begin{eqnarray*}
+x_0&=&\hbox{initial vector}\\
+DF(x_k)s&=&-F(x_k)\hbox{ (solve for s)}\\
+x_{k+1}&=&x_k+s
+\end{eqnarray*}
+
+For this configuration of satellites, the Multivariate Newton's Method 
+quickly converges to the correct solution for the location and time error 
+of the GPS receiver (\(k=20\)):
+
+\begin{eqnarray*}
+x&=& -41.772709570845677 \hbox{ km}\\
+y&=&-16.789194106527514 \hbox{ km}\\
+z&=&6370.059559223338 \hbox{ km}\\
+d&=&-3.201565829594\times10^{-3} \hbox{ s}
+\end{eqnarray*}
+
+<p>
+<a 
+href="http://mason.gmu.edu/~deasley2/project2/Step1MultivariateNewtonMethod.txt">Code 
+for #1 </a>
+</p>
+
+<hr>
+<h3 align="center"><b>Step 2: The Quadratic Method</b></h3>
+
+To carry out the solution via quadratic formula, we must first subtract 
+the last three equations from the first and factor in order to obtain 
+three linear equations of the form \(xu_x+u_y+zu_z+du_d+w=0\). Below is 
+the sequence of steps in the calculation of the subtraction of the second 
+equation from the first, in which the opposite quadratic terms in \(x\), 
+\(y\), \(z\) and \(cd\) have been eliminated:  
+\begin{eqnarray*}
+&&(x-A_1)^2-(x-A_2)^2+(y-B_1)^2-(y-B_2)^2+(z-C_1)^2-(z-C_2)^2=[c(t_1-d)]^2-[c(t_2-d)]^2\\
+&&2A_2x-2A_1x+{A_1}^2-{A_2}^2
++2B_2y-2B_1y+{B_1}^2-{B_2}^2
++2C_2z-2C_1z+{C_1}^2-{C_2}^2
+=c^2{t_1}^2-c^2{t_2}^2 -2c^2{t_1}d+2c^2{t_2}d\\
+&& (2A_2-2A_1)x+{A_1}^2-{A_2}^2
++(2B_2-2B_1)y+{B_1}^2-{B_2}^2
++(2C_2-2C_1)z+{C_1}^2-{C_2}^2
+=c^2{t_1}^2-c^2{t_2}^2 +2c^2(t_2-t_1)d\\
+&& (2A_2-2A_1)x+{A_1}^2-{A_2}^2
++(2B_2-2B_1)y+{B_1}^2-{B_2}^2
++(2C_2-2C_1)z+{C_1}^2-{C_2}^2
+=c^2{t_1}^2-c^2{t_2}^2 +2c^2(t_2-t_1)d\\
+&&2(A_2-A_1)x+2(B_2-B_1)y+2(C_2-C_1)z+2c^2(t_1-t_2)d+{A_1}^2-{A_2}^2+{B_1}^2-{B_2}^2+{C_1}^2-{C_2}^2-c^2{t_1}^2+c^2{t_2}^2=0
+\end{eqnarray*}
+
+
+By symmetry, the other two equations are: 
+\begin{eqnarray*}
+&&2(A_3-A_1)x+2(B_3-B_1)y+2(C_3-C_1)z+2c^2(t_1-t_3)d+{A_1}^2-{A_3}^2+{B_1}^2-{B_3}^2+{C_1}^2-{C_3}^2-c^2{t_1}^2+c^2{t_3}^2=0\\
+&&2(A_4-A_1)x+2(B_4-B_1)y+2(C_4-C_1)z+2c^2(t_1-t_4)d+{A_1}^2-{A_4}^2+{B_1}^2-{B_4}^2+{C_1}^2-{C_4}^2-c^2{t_1}^2+c^2{t_4}^2=0
+\end{eqnarray*}
+
+
+Thus, the column vectors that constitute the multipliers of \(x\), \(y\), 
+\(z\) and \(d\), and the respective constant terms derived from the above 
+three equations are given by 
+\begin{eqnarray*}
+u_x&=&\left[ \begin{array}{c}
+     2(A_2-A_1) \\
+     2(A_3-A_1) \\
+     2(A_4-A_1)
+  \end{array} \right]\\
+u_y&=&\left[ \begin{array}{c}
+     2(B_2-B_1) \\
+     2(B_3-B_1) \\
+     2(B_4-B_1)
+  \end{array} \right]\\
+u_x&=&\left[ \begin{array}{c}
+     2(C_2-C_1) \\
+     2(C_3-C_1) \\
+     2(C_4-C_1)
+  \end{array} \right]\\
+u_d&=&\left[ \begin{array}{c}
+     2c^2(t_1-t_2) \\
+     2c^2(t_1-t_3) \\
+     2c^2(t_1-t_4)
+  \end{array} \right]\\
+w&=&\left[ \begin{array}{c}
+     {A_1}^2-{A_2}^2+{B_1}^2-{B_2}^2+{C_1}^2-{C_2}^2-c^2{t_1}^2+c^2{t_2}^2 
+\\
+     {A_1}^2-{A_3}^2+{B_1}^2-{B_3}^2+{C_1}^2-{C_3}^2-c^2{t_1}^2+c^2{t_3}^2 
+\\
+     {A_1}^2-{A_4}^2+{B_1}^2-{B_4}^2+{C_1}^2-{C_4}^2-c^2{t_1}^2+c^2{t_4}^2
+  \end{array} \right]
+\end{eqnarray*}
+
+In order to express \(x,y,\) and \(z\), respectively, in terms of \(d\) we 
+need to solve the following equations  and factor: 
+\begin{eqnarray*}
+0&=& \det[u_y | u_z | xu_x + yu_y + zu_z + du_d + w]\\
+&=& 
+\det[u_y|u_z|xu_x]+\det[u_y|u_z|yu_y]+\det[u_y|u_z|zu_z]+\det[u_y|u_z|du_d]+\det[u_y|u_z|w]\\
+&=& x\det[u_y|u_z|u_x]+d\det[u_y|u_z|u_d]+\det[u_y|u_z|w]\\
+x &=& d\left(-\frac{\det[u_y|u_z|u_d]}{\det[u_y|u_z|u_x]}\right)
+-\left(\frac{\det[u_y|u_z|w]}{\det[u_y|u_z|u_x]}\right)\\
+\\
+0 &=& \det[u_x | u_z | xu_x + yu_y + zu_z + du_d + w]\\
+&=& \det[u_x | u_z | xu_x] + \det[u_x | u_z | yu_y] + \det[u_x | u_z | 
+zu_z] + \det[u_x | u_z | du_d] + \det[u_x | u_z | w]\\
+&=& y\det[u_x|u_z|u_y]+d\det[u_x|u_z|u_d]+\det[u_x|u_z|w]\\
+y &=& d\left(-\frac{\det[u_x|u_z|u_d]}{\det[u_x|u_z|u_y]}\right)
+-\left(\frac{\det[u_x|u_z|w]}{\det[u_x|u_z|u_y]}\right)\\
+\\
+0 &=& \det[u_x | u_y | xu_x + yu_y + zu_z + du_d + w]\\
+&=& \det[u_x | u_y | xu_x] + \det[u_x | u_y | yu_y] + \det[u_x | u_y | 
+zu_z] + \det[u_x | u_y | du_d] + \det[u_x | u_y | w]\\
+&=& z\det[u_x|u_y|u_z]+d\det[u_x|u_y|u_d]+\det[u_x|u_y|w]\\
+z &=& d\left(-\frac{\det[u_x|u_y|u_d]}{\det[u_x|u_y|u_z]}\right)
+-\left(\frac{\det[u_x|u_y|w]}{\det[u_x|u_y|u_z]}\right)
+\end{eqnarray*}
+
+Letting \(\displaystyle 
+f=\left(-\frac{\det[u_y|u_z|u_d]}{\det[u_y|u_z|u_x]}\right), \ 
+g=\left(\frac{\det[u_y|u_z|w]}{\det[u_y|u_z|u_x]}\right), \ 
+h=\left(-\frac{\det[u_x|u_z|u_d]}{\det[u_x|u_z|u_y]}\right), \ 
+i=\left(\frac{\det[u_x|u_z|w]}{\det[u_x|u_z|u_y]}\right), \ 
+j=\left(-\frac{\det[u_x|u_y|u_d]}{\det[u_x|u_y|u_z]}\right)\),
+and 
+\(\displaystyle 
+k=\left(\frac{\det[u_x|u_y|w]}{\det[u_x|u_y|u_z]}\right)\), we 
+obtain
+\begin{eqnarray*}
+x&=&df-g\\
+y&=&dh-i\\
+z&=&dj-k\\
+\end{eqnarray*}
+Substituting into the first equation of (4.38), we obtain a quadratic 
+equation in \(d\), which can then solve. The steps are summarized 
+below.\begin{eqnarray*}
+&& ((df-g)-A_1)^2+((dh-i)-B_1)^2+((dj-k)-C_1)^2=[c(t_1-d)]^2\\
+&& 
+(df-g)^2-2A(df-g)+{A_1}^2+(dh-i)^2-2B_1(dh-i)+{B_1}^2+(dj-k)^2-2C_1(dj-k)+{C_1}^2=c^2(t_1-d)^2\\
+&& d^2f^2-2dfg+g^2-2A_1df+2A_1g+{A_1}^2  +  
+d^2h^2-2dhi+i^2-2B_1hd+2B_1i+{B_1}^2  +  d^2j^2-2jkd+k^2-2C_1jd 
++\,2C_1k+{C_1}^2 = c^2{t_1}^2-2c^2t_1d+c^2d^2\\
+&& d^2(f^2)+d(-2f(g+A_1))+(g+A_1)^2  +  d^2(h^2)+d(-2h(i+B_1))+(i+B_1)^2  
++  d^2(j^2)+d(-2j(k+C_1))+\,(k+C_1)^2  +  d^2(-c^2)+d(2c^2t_1)-c^2{t_1}^2 
+=0\\
+&& d^2\big(f^2+h^2+j^2-c^2\big)+d\Big(2\big( c^2t_1 - f(g+A_1) - h(i+B_1) 
+- j(k+C_1) \big)\Big)+(g+A_1)^2+(i+B_1)^2+(k+C_1)^2 - c^2{t_1}^2 = 0\\
+\end{eqnarray*}
+From the quadratic equation, we get two solutions, given by
+\(d_1=-0.003201565829594, d_2=0.185173047095946\). The first of these 
+coincides with the check provided in Problem 1, thus \(d_1\) belongs to 
+the near-earth solution.  
+
+<p>Thus the near-earth solution is<p>
+\begin{eqnarray*}
+x&=& -41.772709570837364 \hbox{ km}\\
+y&=&-16.789194106526850 \hbox{ km}\\
+z&=&6.370059559223344\times 10^3 \hbox{ km}\\
+d&=&-0.003201565829594 \hbox{ s}
+\end{eqnarray*}
+while the far-from-earth solutions is 
+
+\begin{eqnarray*}
+x&=& -39.747837348142937 \hbox{ km}\\
+y&=&-1.342741443606658\times 10^2  \hbox{ km}\\
+z&=&-9.413624553735754\times 10^3 \hbox{ km}\\
+d&=&0.185173047095946 \hbox{ s}
+\end{eqnarray*}
+
+
+<p>
+<a  
+href="http://mason.gmu.edu/~deasley2/project2/Step2QuadraticMethod.txt">Code 
+for #2 </a>
+</p>
+
+
+
+<hr> 
+
+
+<h3 align="center"><b>Step 4</b></h3>
+
+For the next 2 problems, we wish to define our satellite positions 
+\((A_i,B_i,C_i)\) in terms of the spherical coordinate system 
+\((\rho,\phi_i,\theta_i)\). We can do this using the following equations:
+\begin{eqnarray*}
+A_i &=& \rho \cos \phi_i \cos_i\\
+B_i &=& \rho \cos \phi_i \sin \theta_i\\
+C_i &=& \rho \sin \theta_i
+\end{eqnarray*}
+and the resultant satellite ranges and travel times using the following 
+equations:
+\[R_i = \sqrt{(A_i - 0)^2 + (B_i - 0)^2 + (C_i - 6370)^2}\]
+\[t_i = d + \frac{R_i}{c}\]
+Although normally \(0\leq\phi\leq\pi\), we want to constrain our 
+satellites to the upper hemisphere, so the bounds of the parameters are as 
+follows:
+\[0 \le \phi_i \le \frac{\pi}2 ,\ \ \ 0 \le \theta_i \le 2 \pi,\ \ \ 
+\rho=\hbox{constant}\]
+We now want to test the conditioning of our GPS, i.e. how susceptible to 
+error a certain configuration of satellites is. 
+
+<p><b>Calculating GPS Position Error and Condition Number</b></p>
+
+We will assume that the error in the satellite's clock is no greater 
+than \(\pm10^{-8}\) seconds. We can then define the error magnification 
+factor (EMF) as:
+\[\hbox{EMF} = \frac{\hbox{Forward error}}{\hbox{Backward error}} = 
+\frac{{|| \Delta x, \Delta y, \Delta z ||}_{\infty}}{c{||\Delta t_1, ... , 
+\Delta t_m ||}_{\infty}}\]
+
+The condition number is the maximum EMF for different \(\Delta t_i\) 
+values. The GPS error is the maximum forward error for different \(\Delta 
+t_i\) values.
+
+
+
+<p>For this problem, our GPS receiver is located at \(x=y=0\) km, 
+\(z=6370\) km, \(d=0.0001\) s.  Our satellites remain at a constant 26570 
+km from the center of the Earth, and we pick the following \(\phi\) and 
+\(\theta\) values for four satellites.</p>
+
+<center>
+<table width=15% border=1 cellpadding=2 cellspacing=0>
+<tr><td width=15% align=center><b> </td>	<td width=20% 
+align=center><b>\(S_1\)</td>	<td width=20% align=center><b>\(S_2\)</td>	
+<td width=20% align=center><b>\(S_3\)</td>
+<td width=20% align=center><b>\(S_4\)</td></tr>
+<tr><td align=center>\(\phi\)</td>	<td 
+align=center>\(\frac{\pi}{4}\)</td>	<td align=center>0</td>	<td 
+align=center>\(\frac{\pi}{2}\)</td>	<td 
+align=center>\(\frac{\pi}{4}\)</td>
+<tr><td align=center>\(\theta\)</td>	<td align=center>0</td>	<td 
+align=center>\(\frac{\pi}{4}\)</td>	<td 
+align=center>\(\frac{\pi}{4}\)</td>	<td 
+align=center>\(\frac{\pi}{2}\)</td>
+</table>
+</center>
+
+<p>\(\\\)<p>
+
+<center>
+    <img width=475 
+src="http://mason.gmu.edu/~deasley2/project2/unbunched_new.png" 
+alt='missing' /> </center>
+
+<p>Notice these are in a diamond structure, with Satellites 1 and 4 along 
+the same axis and Satellites 2 and 3 along the same axis.</p>
+
+<p>
+<a  href="http://mason.gmu.edu/~deasley2/project2/Step4.txt">Code 
+for #4 </a>
+</p>
+
+Using this code, we compute the condition number as <b>3.7373</b>, and the 
+GPS error as <b>0.2002 km</b>.
+
+<hr>
+
+<h3 align="center"><b>Step 5</b></h3>
+
+<p> We are then asked to create a bunched configuration, where any two 
+values are within 5% of one another. Now, 5% of \(2\pi\) is 
+\(\frac{\pi}{10}\), so the difference between the \(\phi\) and \(\theta\) 
+value must be within \(\frac{\pi}{10}\).</p>
+
+The configuration that we picked is below:
+
+<center>
+<table width=15% border=1 cellpadding=2 cellspacing=0>
+<tr><td width=15% align=center><b> </td>	<td width=20% 
+align=center><b>\(S_1\)</td>	<td width=20% align=center><b>\(S_2\)</td>	
+<td width=20% align=center><b>\(S_3\)</td>
+<td width=20% align=center><b>\(S_4\)</td></tr>
+<tr><td align=center>\(\phi\)</td>	<td 
+align=center>\(\frac{\pi}{20}\)</td>	<td align=center>0</td>	<td 
+align=center>\(\frac{\pi}{10}\)</td>	<td 
+align=center>\(\frac{\pi}{20}\)</td>
+<tr><td align=center>\(\theta\)</td>	<td align=center>0</td>	<td 
+align=center>\(\frac{\pi}{20}\)</td>	<td 
+align=center>\(\frac{\pi}{20}\)</td>	<td 
+align=center>\(\frac{\pi}{10}\)</td>
+</table>
+</center>
+
+<p>\(\\\)<p>
+
+<center>
+    <img width=475 
+src="http://mason.gmu.edu/~deasley2/project2/bunched_new.png" 
+alt='missing' />
+    <img width=475 
+src="http://mason.gmu.edu/~deasley2/project2/bunched2_new.png" 
+alt='missing' /> </center>
+
+<p>For this setup, the condition number is <b>2222.9</b> and the GPS error 
+is <b>149.844 km</b>.</p>
+
+<p>It can be seen from these two cases that tightly bunched satellites 
+produce poorer results than unbunched satellites.</p>
+
+<p>
+<a  href="http://mason.gmu.edu/~deasley2/project2/Step5.txt">Code
+for #5 </a>
+</p>
+
+<hr>
+<h3 align="center"><b>Step 6</b></h3>
+
+
+<p><b>Gauss-Newton Method:</b></p>
+In the case where there are more equations then there are unknowns, we 
+will use a non-linear least squares method to find the closest, namely the 
+Gauss-Newton Method. To do this we construct a matrix \(D\) that is the 
+Jacobian of our equations, and a vector \(r(x_k)\) that is the set of 
+equations needing to be minimized.
+
+<ol>
+<li>Set \(x_0 = \)initial vector.</li>
+<li>
+<b>for</b> \(k = 0,1,2,\dots\)
+\[A = Dr(x_k)\]
+\[A^T A v_k = -A\]
+\[x_{k+1} = x_k + v_k\]
+
+<b>end</b></li>
+</ol>
+
+
+<p>This is the algorithm implemented for part 6.</p>
+
+
+
+
+<p>For the final part of this project, we were asked to find an 
+arrangement of more than four satellites that reduced the condition number 
+and the GPS error. An effective way to do this is to evenly space the 
+satellites around the globe, using an icosahedron.</p>
+An icosahedron is a geometric shape with twelve vertices, each of which is 
+the same distance from the center and which is evenly spaced in 
+relationship to its adjacent vertices. Below is a figure:
+
+<pic>
+<center>
+    <a 
+href="http://en.wikipedia.org/wiki/File:Icosahedron-golden-rectangles.svg"><img 
+src="http://mason.gmu.edu/~deasley2/project2/Icosahedron-golden-rectangles.png" 
+alt='missing' /></a>
+</center>
+
+
+<p>It is tricky to define these vertices in spherical coordinates, but 
+easy in cubic coordinates.</p>
+Let \(\epsilon=\frac{1+\sqrt{5}}2\) (this is known as the golden ratio, 
+with many fascinating properties we will not discuss here). The positions 
+of the vertices of this icosahedron can be described in terms of the 
+points on the smallest sphere that contains it by 
+\( \left[
+\begin{array}{c}
+x\\ 
+y\\ 
+z \end{array}\right] = \left[
+\begin{array}{ccc}
+ 0 & \pm 1 & \pm \epsilon \\
+ \pm 1 & \pm \epsilon & 0 \\
+ \pm \epsilon & 0 & \pm 1
+\end{array}\right]\), a total of twelve combinations. Then the points are 
+scaled by a factor 
+of \(\frac{26576}{\sqrt{1+\epsilon^2}}\)  to reach the desired \(\rho\) 
+value of 26576 km. To maintain the upper hemisphere constraint of the 
+previous problems, we choose only the upper 8 points.
+Best vector: For this configuration, as long as \(x,y,\) and \(z\) are on 
+the interval \((-34000,34000)\) km, the method converges within 10 steps.
+
+<p>
+<a  href="http://mason.gmu.edu/~deasley2/project2/Step6.txt">Code 
+for #6 </a>
+</p>
+
+<p>This configuration produces a GPS error (maximum forward error) of 
+<b>70.08 meters</b>, and a condition number (maximum error magnification 
+factor) of <b>0.9725</b>.</p>
+Normally, satellites could not keep this unique separation, as they have 
+to maintain circular orbits around the Earth. However, the planned Wide 
+Area Augmentation System (WAAS) is geosynchronous, meaning that this 
+spacing could be maintained without bunching. With the increased \(\rho\) 
+value (<b>42256 km</b>), this same configuration has a GPS error of 
+<b>71.91 meters</b>, and a condition number of <b>0.9905</b>.
+
+<p>\(\\\)<p>
+
+</BODY></HTML>
+

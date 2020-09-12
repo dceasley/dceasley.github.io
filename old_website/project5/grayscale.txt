@@ -1,0 +1,36 @@
+X = imread('Assisi.jpg');
+X=double(X);
+r=X(:,:,1);g=X(:,:,2);b=X(:,:,3);
+Xgray=0.2126*r+0.7152*g+0.0722*b;
+Xgray=uint8(Xgray);
+imagesc(Xgray,[0 255]); colormap(gray); axis square
+
+sizegray=size(Xgray)/8
+for i=0:2
+    p=2^i
+    Q=p*8./hilb(8);
+
+    for j=1:sizegray
+        for k=1:sizegray
+            Xb = Xgray(8*(j-1)+1: 8*j, 8*(k-1)+1: 8*k); %~center 8x8 block
+            
+            %Quantization
+            Xd=double(Xb);
+            Xc=Xd-128;
+            C=dct(Xd);
+            Y=C*Xc*C';
+            Yq=round(Y./Q);
+
+            %Dequantization
+            Ydq=Yq.*Q;
+            Xdq=C'*Ydq*C;
+            Xe=Xdq+128;
+            Xf=uint8(Xe);
+            Xcomp(8*(j-1)+1: 8*j, 8*(k-1)+1: 8*k)=Xf;
+        end
+    end
+
+    figure(2+i); imagesc(Xcomp,[0 255]); colormap(gray); axis square
+    str = sprintf('p = %d', p);
+    title(str)
+end

@@ -1,0 +1,157 @@
+<HTML><HEAD><TITLE>Project 5 Part 4</TITLE></HEAD>
+<BODY bgColor="#E8E8E8"  link="#800000" vlink="#800000">
+<style type="text/css">
+body{background: url("http://mason.gmu.edu/~deasley2/itbg_d7ecef.png"); 
+margin:40px; padding:0px; border:0px}
+
+<!-------------------------------------------------------------------------------------------------------------------------------------------->
+
+i{font-family: "Times";}
+
+h1 { color:#0c7f95; font-size: 250%; height:16px; text-align:center}
+h2 { color:#0a8fa0; font-size: 175%; height:16px; text-align:center}
+h3 { color:#0a8fa0; font-size: 148%; height:12px; text-align:center}
+h4 { color:#0a8fa0; font-size: 120%; height:12px; text-align:center}
+.wrapper {width: 520px; margin: auto; }
+
+nav
+{
+display: block;    
+width: 460px;
+margin: 0 auto;
+text-align:center
+}
+
+nav a
+{
+    display: block;
+    float: left;
+    margin: .25em 5px .25em;
+    width: 82px;
+    height: 30px;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+}
+
+nav a[href="http://mason.gmu.edu/~deasley2/project5/"] { 
+background-image: 
+url("http://mason.gmu.edu/~deasley2/project5/Intro.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project5/part3.html"] { 
+background-image: 
+url("http://mason.gmu.edu/~deasley2/project5/11-2-3.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project5/part4.html"] { 
+background-image: 
+url("http://mason.gmu.edu/~deasley2/project5/11-2-4.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project5/part5.html"] { 
+background-image: 
+url("http://mason.gmu.edu/~deasley2/project5/11-2-5.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project5/part6.html"] { 
+background-image: 
+url("http://mason.gmu.edu/~deasley2/project5/11-2-6.png");}
+
+nav a:hover
+{
+    background-position: top center;
+}
+
+nav span
+{
+    visibility: hidden;
+}
+
+<!--------------------------------------------------------------------------------------------------------------------------------------------->
+
+</style>
+
+<FONT FACE="goudy old style, arial ">
+
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+
+
+
+
+
+<h1>Project 5</h1>
+<h2>Image Compression</h2>
+
+<h4>By Deanna Easley </h4>
+
+</head>
+  <body>
+<div class="wrapper">
+<div class="header">
+        <nav>
+            <a 
+href="http://mason.gmu.edu/~deasley2/project5/"><span>Intro</span></a>
+            <a 
+href="http://mason.gmu.edu/~deasley2/project5/part3.html"><span>Part 
+3</span></a>
+            <a 
+href="http://mason.gmu.edu/~deasley2/project5/part4.html"><span>Part 
+4</span></a>
+            <a 
+href="http://mason.gmu.edu/~deasley2/project5/part5.html"><span>Part 
+5</span></a>
+            <a 
+href="http://mason.gmu.edu/~deasley2/project5/part6.html"><span>Part 
+6</span></a>
+        </nav>
+</div>
+<p><br><br></p>
+</div>
+
+<h3>11.2.4 - Grayscale Image Compression Quantized by the JPEG-suggested 
+matrix with \(p=1\)</h3>
+
+<center><img 
+src="http://mason.gmu.edu/~deasley2/project5/fig1_grayscale.jpg" 
+align=center>
+</center>
+<p></p>
+
+<p>Here we will use the same grayscale image and extracted 8x8 block 
+obtained from the previous problem, but a different quantization.
+<br>
+This time we will use the JPEG-suggested matrix with \(p=1\)
+\[Q_y=p\begin{bmatrix}
+16  &  11  &  10  &  16  &  24    &  40    &  51    & 61 \\
+12  &  12  &  14  &  19  &  26    &  58    &  60    & 55 \\
+14  &  13  &  16  &  24  &  40    &  57    &  69    & 56 \\
+14  &  17  &  22  &  29  &  51    &  87    &  80    & 62 \\
+18  &  22  &  37  &  56  &  68    &  109  &  103  & 77 \\
+24  &  35  &  55  &  64  &  81    &  104  &  113  & 92 \\
+49  &  64  &  78  &  87  &  103  &  121  &  120  & 102 \\
+72  &  92  &  95  &  98  &  112  &  100  &  103  & 99 
+\end{bmatrix}.\]
+
+In this case, 
+\[Y_Q=\begin{bmatrix}
+  -36  &   0  &  1  &  0   &   0  &   0  &   0  &  0 \\
+     3  &   1  &  0  &  -1  &   0  &   0  &   0  &   0 \\
+     0  &   2  &  2  &   0  &   0  &   0  &   0  &   0 \\
+     0  &   0  &  2  &   0  &   0  &   0  &   0  &   0 \\
+     0  &  -1  &  1  &   0  &   0  &   0  &   0  &   0 \\
+     0  &   0  &  0  &   0  &   0  &   0  &   0  &   0 \\
+     0  &   0  &  0  &   0  &   0  &   0  &   0  &   0 \\
+     0  &   0  &  0  &   0  &   0  &   0  &   0  &   0 
+\end{bmatrix},\]
+and we achieve the following reconstructed block and reconstituted 
+image:<p>
+
+
+<center>
+<a href="http://mason.gmu.edu/~deasley2/project5/grayscaleQy_8x8.txt"><img 
+src="http://mason.gmu.edu/~deasley2/project5/grayscaleQy8x8_p1.jpg" 
+alt='missing' 
+/></a>
+<a href="http://mason.gmu.edu/~deasley2/project5/grayscaleQy.txt"><img 
+src="http://mason.gmu.edu/~deasley2/project5/grayscaleQy_p1.jpg" 
+alt='missing' 
+/></a>
+<br><i>Click on the image to see the corresponding code.</i>
+</center>
+
+</body>
+</html>

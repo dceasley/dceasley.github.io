@@ -1,0 +1,39 @@
+X = imread('Assisi.jpg');
+X=double(X);
+imagesc(uint8(X),[0 255]); colormap; axis square
+
+r=X(:,:,1); g=X(:,:,2); b=X(:,:,3);
+
+for i=0:2
+    p=2^i
+    Q=p*8./hilb(8);
+
+    sizeX=size(X)/8;
+
+    Xrgbcomp=ones(length(X),length(X));
+    for j=1:sizeX
+        for k=1:sizeX
+            Xr=r(8*(j-1)+1: 8*j, 8*(k-1)+1: 8*k);
+            Xrgbcomp(8*(j-1)+1: 8*j, 8*(k-1)+1: 8*k,1) = compress(Xr,Q);
+
+            Xrcomp(8*(j-1)+1: 8*j, 8*(k-1)+1: 8*k) = compress(Xr,Q);
+
+
+            Xg=g(8*(j-1)+1: 8*j, 8*(k-1)+1: 8*k);
+            Xrgbcomp(8*(j-1)+1: 8*j, 8*(k-1)+1: 8*k,2) = compress(Xg,Q);
+
+            Xgcomp(8*(j-1)+1: 8*j, 8*(k-1)+1: 8*k) = compress(Xg,Q);
+
+
+            Xb=b(8*(j-1)+1: 8*j, 8*(k-1)+1: 8*k);
+            Xrgbcomp(8*(j-1)+1: 8*j, 8*(k-1)+1: 8*k,3) = compress(Xb,Q);
+
+            Xbcomp(8*(j-1)+1: 8*j, 8*(k-1)+1: 8*k) = compress(Xb,Q);
+        end
+    end
+
+
+    figure(2+i); imagesc(uint8(Xrgbcomp),[0 255]); colormap; axis square
+    str = sprintf('p = %d', p);
+    title(str)
+end

@@ -1,0 +1,31 @@
+clear;
+X = imread('Assisi.jpg');
+X=double(X);
+r=X(:,:,1);g=X(:,:,2);b=X(:,:,3);
+Xgray=0.2126*r+0.7152*g+0.0722*b;
+Xgray=uint8(Xgray);
+imagesc(Xgray,[0 255]); colormap(gray); axis square
+
+Xb = Xgray(197:204,197:204); %~center 8x8 block
+figure(2); imagesc(Xb,[0 255]); colormap(gray); axis square
+
+for i=0:2
+   p=2^i
+   Q=p*8./hilb(8);
+   
+   %Quantization
+   Xd=double(Xb);
+   Xc=Xd-128; %center
+   C=dct(Xd); %Apply the 2D-DCT.
+   Y=C*Xc*C';
+   Yq=round(Y./Q)
+   
+   %Dequantization
+   Ydq=Yq.*Q;
+   Xdq=C'*Ydq*C;
+   Xe=Xdq+128;
+   Xf=uint8(Xe);
+   figure(3+i); imagesc(Xf,[0 255]); colormap(gray); axis square; 
+   str = sprintf('p = %d', p);
+   title(str)
+end

@@ -1,0 +1,225 @@
+<HTML><HEAD><TITLE>Project 6 Step 3</TITLE>
+</HEAD>
+<BODY bgColor="#E8E8E8"  link="#800000" vlink="#800000">
+
+<FONT FACE="goudy old style, arial ">
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+
+<BODY bgColor="#f7ddbc" url("http://www.rigelatin.net/global/itbg.jpg")  
+link="#800000" vlink="#800000">
+
+<style type="text/css">
+body{background: url("http://mason.gmu.edu/~deasley2/itbg_d7ecef.png"); 
+margin:40px; padding:0px; border:0px}
+
+<!---------------------------------------------------------------------------------------------------------------------------------->
+
+i{font-family: "Times";}
+
+h1 { color:#0c7f95; font-size: 250%; height:16px; text-align:center}
+h2 { color:#0a8fa0; font-size: 175%; height:16px; text-align:center}
+h3 { color:#0a8fa0; font-size: 148%; height:12px; text-align:center}
+h4 { color:#0a8fa0; font-size: 120%; height:12px; text-align:center}
+.wrapper {width: 620px; margin: auto; }
+
+nav
+{
+display: block;    
+width: 644px;
+margin: 0px 0px 0px -12px;
+text-align:center
+}
+
+nav a
+{
+    display: block;
+    float: left;
+    margin: .25em 5px .25em;
+    width: 82px;
+    height: 30px;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+}
+
+nav a[href="http://mason.gmu.edu/~deasley2/project6/"] {background-image: 
+url("http://mason.gmu.edu/~deasley2/project5/Intro.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step1.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step1.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step2.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step2.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step3.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step3.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step4.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step4.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step5.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step5.png");}
+nav a[href="http://mason.gmu.edu/~deasley2/project6/step6.html"] 
+{background-image: 
+url("http://mason.gmu.edu/~deasley2/project6/Step6.png");}
+
+nav a:hover
+{
+    background-position: top center;
+}
+
+nav span
+{
+    visibility: hidden;
+}
+</style>
+
+<!---------------------------------------------------------------------------------------------------------------------------------->
+
+<h1>Project 6</h1>
+
+<h2>Google Page Rank</h2>
+
+<h4>By <a href="http://mason.gmu.edu/~rdonoso/" style="text-decoration: 
+none; color: #0a8fa0">Roque Donoso</a>, 
+<a href="http://mason.gmu.edu/~deasley2/" style="text-decoration: none; 
+color: #0a8fa0">Deanna Easley</a>, 
+and <a href="http://mason.gmu.edu/~cnelso17/" style="text-decoration: 
+none; color: #0a8fa0">Conor Nelson </a></h4>
+
+
+<center>
+<div class="wrapper">
+<div class="header">
+     <nav>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/"><span>Intro</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step1.html"><span>Step 
+1</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step2.html"><span>Step 
+2</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step3.html"><span>Step 
+3</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step4.html"><span>Step 
+4</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step5.html"><span>Step 
+5</span></a>
+         <a 
+href="http://mason.gmu.edu/~deasley2/project6/step6.html"><span>Step 
+6</span></a>
+     </nav>
+</div>
+<p><br><br></p>
+</div>
+</center>
+
+<!---------------------------------------------------------------------------------------------------------------------------------->
+
+<h3>Step 3</h3>
+
+<p><font color=#0a8fa0><b>Change the jump probability \(q\) to (a) 0 and 
+(b) 0.5. Describe the resulting changes in the page rank. What is the 
+purpose of the jump probability?</b></font></p>
+
+<p>Note that column 1 and column 3 correspond to the cases \(p=0\) and 
+\(p=0.5\), respectively. Here we can see in the rows whose entries 
+have high (respectively, low) probability (see for example, rows 13, 
+14, and 15 (respectively, rows 1,2,3)), the probabilities decrease 
+(respectively, increase). These both converge to \(\frac{1}{15}\), 
+where 15 is the number of rows. The purpose of the jump probability is 
+how likely someone is to click a link on a page. So the closer the 
+probability is to 1, the more evenly distributed the probability that 
+one will click on a link will be.</p>
+
+<center>
+<table width=50% border=1 cellpadding=2 cellspacing=0>
+<tr><td  align=center><b>p/r</td>    <td align=center><b>0</td> <td 
+align=center><b>0.15</td> <td align=center><b>0.5</td> <td 
+align=center><b>0.9</td>    <td align=center><b>0.9999</td> <td 
+align=center><b>1</td></tr>
+<tr><td align=center>1</td>	<td align=center>0.0154</td>	<td 
+align=center>0.0268</td>	<td align=center>0.0467</td>	
+<td align=center>0.0632</td>	<td align=center>0.0667</td>	<td 
+align=center>\(0.860927674354995 \times 10^{15}\)</td>	
+
+<tr><td align=center>2</td>	<td align=center>0.0116</td>	<td 
+align=center>0.0299</td>	<td align=center>0.0540</td>	
+<td align=center>0.0653</td>	<td align=center>0.0667</td>	<td 
+align=center>\(0.726630113971586 \times 10^{15}\)</td>	
+
+<tr><td align=center>3</td>	<td align=center>0.0116</td>	<td 
+align=center>0.0299</td>	<td align=center>0.0540</td>	
+<td align=center>0.0653</td>	<td align=center>0.0667</td>	<td 
+align=center>\(0.726630113971586 \times 10^{15}\)</td>	
+
+<tr><td align=center>4</td>	<td align=center>0.0154</td>	<td 
+align=center>0.0268</td>	<td align=center>0.0467</td>	
+<td align=center>0.0632</td>	<td align=center>0.0667</td>	<td 
+align=center>\(0.726630113971586 \times 10^{15}\)</td>	
+
+<tr><td align=center>5</td>	<td align=center>0.0309</td>	<td 
+align=center>0.0396</td>	<td align=center>0.0536</td>	
+<td align=center>0.0644</td>	<td align=center>0.0667</td>	<td 
+align=center>\(0.726630113971586 \times 10^{15}\)</td>	
+
+<tr><td align=center>6</td>	<td align=center>0.0309</td>	<td 
+align=center>0.0396</td>	<td align=center>0.0536</td>	
+<td align=center>0.0644</td>	<td align=center>0.0667</td>	<td 
+align=center>\(0.726630113971586 \times 10^{15}\)</td>	
+
+<tr><td align=center>7</td>	<td align=center>0.0309</td>	<td 
+align=center>0.0396</td>	<td align=center>0.0536</td>	
+<td align=center>0.0644</td>	<td align=center>0.0667</td>	<td 
+align=center>\(0.726630113971586 \times 10^{15}\)</td>	
+
+<tr><td align=center>8</td>	<td align=center>0.0309</td>	<td 
+align=center>0.0396</td>	<td align=center>0.0536</td>	
+<td align=center>0.0644</td>	<td align=center>0.0667</td>	<td 
+align=center>\(0.726630113971586 \times 10^{15}\)</td>	
+
+<tr><td align=center>9</td>	<td align=center>0.0811</td>	<td 
+align=center>0.0746</td>	<td align=center>0.0676</td>	
+<td align=center>0.0666</td>	<td align=center>0.0667</td>	<td 
+align=center>\(0.726630113971586 \times 10^{15}\)</td>	
+
+<tr><td align=center>10</td>	<td align=center>0.1100</td>	<td 
+align=center>0.1063</td>	<td align=center>0.0946</td>	
+<td align=center>0.0736</td>	<td align=center>0.0667</td>	<td 
+align=center>\(0.726630113971584 \times 10^{15}\)</td>	
+
+<tr><td align=center>11</td>	<td align=center>0.1100</td>	<td 
+align=center>0.1063</td>	<td align=center>0.0946</td>	
+<td align=center>0.0736</td>	<td align=center>0.0667</td>	<td 
+align=center>\(-4.331132521771076 \times 10^{15}\)</td>	
+
+<tr><td align=center>12</td>	<td align=center>0.0811</td>	<td 
+align=center>0.0746</td>	<td align=center>0.0676</td>	
+<td align=center>0.0666</td>	<td align=center>0.0667</td>	<td 
+align=center>\(-4.331132521771076 \times 10^{15}\)</td>	
+
+<tr><td align=center>13</td>	<td align=center>0.1467</td>	<td 
+align=center>0.1251</td>	<td align=center>0.0905</td>	
+<td align=center>0.0690</td>	<td align=center>0.0667</td>	<td 
+align=center>\(-4.331132521771077 \times 10^{15}\)</td>	
+
+<tr><td align=center>14</td>	<td align=center>0.1467</td>	<td 
+align=center>0.1163</td>	<td align=center>0.0786</td>	
+<td align=center>0.0669</td>	<td align=center>0.0667</td>	<td 
+align=center>\(4.160344760427072 \times 10^{15}\)</td>	
+
+<tr><td align=center>15</td>	<td align=center>0.1467</td>	<td 
+align=center>0.1251</td>	<td align=center>0.0905</td>	
+<td align=center>0.0690</td>	<td align=center>0.0667</td>	<td 
+align=center>\(1.432454104786895 \times 10^{15}\)</td>	
+
+</table>
+</center>
+
+</body>
+</html>
